@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context="com.example.guto.pecame.ChooseTableActivity">
+
+    <EditText
+        android:id="@+id/editTextMesa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        tools:text="Mesa"
+        android:hint="Mesa"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        tools:ignore="MissingConstraints"/>
+
+    <Button
+        android:id="@+id/btnEnterTable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextMesa"
+        android:layout_centerHorizontal="true"
+        android:text="Abrir mesa"/>
+    
+</RelativeLayout>

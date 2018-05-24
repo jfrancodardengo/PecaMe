@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "993675729428",
+    "firebase_url": "https://pecame-a5b91.firebaseio.com",
+    "project_id": "pecame-a5b91",
+    "storage_bucket": "pecame-a5b91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993675729428:android:3cbb19c59a9baf71",
+        "android_client_info": {
+          "package_name": "com.example.guto.pecame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993675729428-n2418k4e2fesdg0j8mdlpncnofe7jc4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guto.pecame",
+            "certificate_hash": "bd6a54dea481250eb26ac4cdc0805b4052eb3a25"
+          }
+        },
+        {
+          "client_id": "993675729428-6nhuhdv1v87pn1ko0a19cjt369uj5jk0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUsDnr7k3-7vRU_wK8VlIVqN5X_I2s0Pw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993675729428-6nhuhdv1v87pn1ko0a19cjt369uj5jk0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
