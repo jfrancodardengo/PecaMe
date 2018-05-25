@@ -6,9 +6,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +34,9 @@ public class DessertFragment extends Fragment {
     private List<Product> productList = new ArrayList<>();
     private ProductAdapter productAdapter;
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference();
+
     public DessertFragment() {
         // Required empty public constructor
     }
@@ -39,20 +49,52 @@ public class DessertFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_dessert, container, false);
         ButterKnife.bind(this,rootView);
 
-        productAdapter = new ProductAdapter(productList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(productAdapter);
+//        insertBD();
+        valueListener();
 
         return rootView;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        productList.add(new Product("Negodonn Americano","R$ 15,00"));
-        productList.add(new Product("Brownie Ray Charles","R$ 17,00"));
-        productList.add(new Product("Picolé birgadeiro 75 g","R$ 4,00"));
+    public void onStart() {
+        super.onStart();
+//        insertBD();
     }
 
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        insertBD();
+//    }
+
+
+    public void valueListener(){
+
+        myRef.child("Product").child("desserts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    Log.v("Snapshot: ",dataSnapshot1.toString());
+                    Product value = dataSnapshot1.getValue(Product.class);
+                    Log.v("Product: ",value.toString());
+                    productList.add(value);
+                }
+
+                productAdapter = new ProductAdapter(productList);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.setAdapter(productAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void insertBD(){
+        myRef.child("Product").child("desserts").push().setValue(new Product("Americano","R$ 15,00"));
+        myRef.child("Product").child("desserts").push().setValue(new Product("Brownie","R$ 17,00"));
+        myRef.child("Product").child("desserts").push().setValue(new Product("Picolé brigadeiro","R$ 7,00"));
+    }
 }

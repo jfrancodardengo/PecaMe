@@ -37,6 +37,9 @@ public class ListProductActivity extends AppCompatActivity {
     @BindView(R.id.viewpager)
     ViewPager viewPager;
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,8 @@ public class ListProductActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+//        insertBD();
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -107,4 +112,28 @@ public class ListProductActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void insertBD(){
+        myRef.child("Product").child("hamburguers").push().setValue(new Product("Mister","R$ 15,00"));
+        myRef.child("Product").child("hamburguers").push().setValue(new Product("Brutus","R$ 22,00"));
+        myRef.child("Product").child("hamburguers").push().setValue(new Product("Classic","R$ 11,00"));
+        myRef.child("Product").child("hamburguers").push().setValue(new Product("Levíssimo","R$ 17,00"));
+        myRef.child("Product").child("hamburguers").push().setValue(new Product("Espetacular","R$ 17,00"));
+        myRef.child("Product").child("hamburguers").push().setValue(new Product("Modesto","R$ 13,00"));
+        myRef.child("Product").child("hamburguers").push().setValue(new Product("Fabuloso","R$ 15,00"));
+        myRef.child("Product").child("hamburguers").push().setValue(new Product("Frescão","R$ 14,00"));
+
+        myRef.child("Product").child("drinks").push().setValue(new Product("Refrigerante Coca Cola 600 ml","R$ 7,00"));
+        myRef.child("Product").child("drinks").push().setValue(new Product("Refrigerante Guaraná Antartica 350 ml","R$ 5,00"));
+        myRef.child("Product").child("drinks").push().setValue(new Product("Cerveja Long Neck Stella Artois 275 ml","R$ 7,00"));
+        myRef.child("Product").child("drinks").push().setValue(new Product("Energetico Monster Energy 473 ml ","R$ 8,00"));
+
+        myRef.child("Product").child("desserts").push().setValue(new Product("Americano","R$ 15,00"));
+        myRef.child("Product").child("desserts").push().setValue(new Product("Brownie","R$ 17,00"));
+        myRef.child("Product").child("desserts").push().setValue(new Product("Picolé brigadeiro","R$ 7,00"));
+    }
+
 }
+
+
