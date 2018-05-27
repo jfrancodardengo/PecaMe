@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/layout_margin"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:id="@+id/linearVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/bottom_padding_textview"
+            android:paddingTop="@dimen/top_padding_textview"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/subheading_text_size"
+            tools:text="Produto" />
+
+        <TextView
+            android:id="@+id/text_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/bottom_padding_textview"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="@dimen/body_text_size"
+            tools:text="Preço" />
+
+        <EditText
+            android:id="@+id/edit_observacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_item_produto"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingTop="@dimen/top_padding_textview"
+            tools:text="Observação" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_toRightOf="@id/linearVertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_diminuir"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/button_bg_round"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="-"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/text_quantidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/bottom_padding_textview"
+            android:paddingEnd="@dimen/bottom_padding_textview"
+            android:paddingStart="@dimen/bottom_padding_textview"
+            android:paddingTop="@dimen/top_padding_textview"
+            android:text="1"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/subheading_text_size" />
+
+        <Button
+            android:id="@+id/button_aumentar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/button_bg_round"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="+"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/button_remover"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginHorizontal="170dp"
+            android:background="@drawable/button_bg_round"
+            android:backgroundTint="@color/colorAccent"
+            android:text="x"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+</RelativeLayout>

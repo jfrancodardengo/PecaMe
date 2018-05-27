@@ -1,8 +1,8 @@
-package com.example.guto.pecame;
+package com.example.guto.pecame.fragmentos;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.guto.pecame.adaptadores.ProdutoAdaptador;
+import com.example.guto.pecame.modelo.ProdutoModelo;
+import com.example.guto.pecame.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,17 +30,18 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DrinkFragment extends Fragment {
+public class HamburguerFragment extends Fragment {
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
-    private List<Product> productList = new ArrayList<>();
-    private ProductAdapter productAdapter;
+    private List<ProdutoModelo> produtoModeloList = new ArrayList<>();
+    ProdutoAdaptador produtoAdaptador;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
 
-    public DrinkFragment() {
+
+    public HamburguerFragment() {
         // Required empty public constructor
     }
 
@@ -46,12 +50,12 @@ public class DrinkFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_drink, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_hamburguer, container, false);
         ButterKnife.bind(this,rootView);
 
 //        insertBD();
-        valueListener();
 
+        valueListener();
         return rootView;
     }
 
@@ -69,19 +73,20 @@ public class DrinkFragment extends Fragment {
 
     public void valueListener(){
 
-        myRef.child("Product").child("drinks").addValueEventListener(new ValueEventListener() {
+        myRef.child("Produto").child("grupos").child("comidas").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     Log.v("Snapshot: ",dataSnapshot1.toString());
-                    Product value = dataSnapshot1.getValue(Product.class);
-                    Log.v("Product: ",value.toString());
-                    productList.add(value);
+                    ProdutoModelo value = dataSnapshot1.getValue(ProdutoModelo.class);
+                    Log.v("ProdutoModelo: ",value.toString());
+                    produtoModeloList.add(value);
                 }
 
-                productAdapter = new ProductAdapter(productList);
+                produtoAdaptador = new ProdutoAdaptador(produtoModeloList);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerView.setAdapter(productAdapter);
+                recyclerView.setAdapter(produtoAdaptador);
             }
 
             @Override
@@ -92,9 +97,13 @@ public class DrinkFragment extends Fragment {
     }
 
     public void insertBD(){
-        myRef.child("Product").child("drinks").push().setValue(new Product("Refrigerante Coca Cola 600 ml","R$ 7,00"));
-        myRef.child("Product").child("drinks").push().setValue(new Product("Refrigerante Guaraná Antartica 350 ml","R$ 5,00"));
-        myRef.child("Product").child("drinks").push().setValue(new Product("Cerveja Long Neck Stella Artois 275 ml","R$ 7,00"));
-        myRef.child("Product").child("drinks").push().setValue(new Product("Energetico Monster Energy 473 ml ","R$ 8,00"));
+        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Mister","R$ 15,00"));
+        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Brutus","R$ 22,00"));
+        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Classic","R$ 11,00"));
+        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Levíssimo","R$ 17,00"));
+        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Espetacular","R$ 17,00"));
+        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Modesto","R$ 13,00"));
+        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Fabuloso","R$ 15,00"));
+        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Frescão","R$ 14,00"));
     }
 }

@@ -2,6 +2,7 @@ package com.example.guto.pecame;
 
 import android.util.Log;
 
+import com.example.guto.pecame.modelo.ProdutoModelo;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,20 +16,20 @@ public class ValueEventListener implements ChildEventListener{
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 //        for(DataSnapshot d : dataSnapshot.getChildren()){
-//            Product p = d.getValue(Product.class);
+//            ProdutoModelo p = d.getValue(ProdutoModelo.class);
 //
-//            Log.i("log","Descrição: "+p.getDescription());
-//            Log.i("log","Preço: "+p.getPrice());
+//            Log.i("log","Descrição: "+p.getmDescProduto());
+//            Log.i("log","Preço: "+p.getmPreco());
 //        }
     }
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
         for(DataSnapshot d : dataSnapshot.getChildren()){
-            Product p = d.getValue(Product.class);
+            ProdutoModelo p = d.getValue(ProdutoModelo.class);
 
-            Log.i("log","Descrição: "+p.getDescription());
-            Log.i("log","Preço: "+p.getPrice());
+            Log.i("log","Descrição: "+p.getmDescProduto());
+            Log.i("log","Preço: "+p.getmPreco());
         }
     }
 

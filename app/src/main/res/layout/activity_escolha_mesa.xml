@@ -5,26 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context="com.example.guto.pecame.ChooseTableActivity">
+    tools:context="com.example.guto.pecame.ui.EscolhaMesaActivity">
 
     <EditText
-        android:id="@+id/editTextMesa"
+        android:id="@+id/edit_mesa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        tools:text="Mesa"
-        android:hint="Mesa"
         android:layout_centerInParent="true"
+        android:ems="10"
+        android:hint="Mesa"
+        android:inputType="number"
         android:textAlignment="center"
-        tools:ignore="MissingConstraints"/>
+        tools:ignore="MissingConstraints"
+        tools:text="Mesa" />
 
     <Button
-        android:id="@+id/btnEnterTable"
+        android:id="@+id/button_abrir_mesa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextMesa"
+        android:layout_below="@id/edit_mesa"
         android:layout_centerHorizontal="true"
-        android:text="Abrir mesa"/>
-    
+        android:text="Abrir mesa" />
+
 </RelativeLayout>

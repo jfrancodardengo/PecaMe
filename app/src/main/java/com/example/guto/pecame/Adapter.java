@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.guto.pecame.modelo.ProdutoModelo;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,7 +20,7 @@ import butterknife.ButterKnife;
  * Created by GUTO on 21/05/2018.
  */
 
-public class Adapter extends ArrayAdapter<Product>{
+public class Adapter extends ArrayAdapter<ProdutoModelo>{
     @BindView(R.id.text_product)
     TextView textProduct;
     @BindView(R.id.text_price)
@@ -28,7 +30,7 @@ public class Adapter extends ArrayAdapter<Product>{
         super(context, resource);
     }
 
-    public Adapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
+    public Adapter(@NonNull Context context, int resource, @NonNull List<ProdutoModelo> objects) {
         super(context, resource, objects);
     }
 
@@ -36,14 +38,14 @@ public class Adapter extends ArrayAdapter<Product>{
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.product_item, parent, false);
+            convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.produto_item, parent, false);
         }
         ButterKnife.bind(convertView);
 
-        Product product = getItem(position);
+        ProdutoModelo produtoModelo = getItem(position);
 
-        textProduct.setText(product.getDescription());
-        textPrice.setText(product.getPrice());
+        textProduct.setText(produtoModelo.getmDescProduto());
+        textPrice.setText(produtoModelo.getmPreco());
 
         return convertView;
     }
