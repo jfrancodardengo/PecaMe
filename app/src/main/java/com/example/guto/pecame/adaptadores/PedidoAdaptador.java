@@ -7,8 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.guto.pecame.R;
 import com.example.guto.pecame.modelo.PedidoModelo;
@@ -25,6 +27,9 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
 //    private List<ProdutoModelo> mProdutoModeloList;
     private ProdutoModelo mProdutoModelo;
     private List<PedidoModelo> mPedidoModeloList;
+
+    public PedidoAdaptador() {
+    }
 
     public PedidoAdaptador(List<PedidoModelo> mPedidoModeloList, ProdutoModelo mProdutoModelo) {
         this.mPedidoModeloList = mPedidoModeloList;
@@ -44,16 +49,35 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        PedidoModelo pedidoModelo = mPedidoModeloList.get(position);
+    public void onBindViewHolder(@NonNull final ProductViewHolder holder, int position) {
+        final PedidoModelo pedidoModelo = mPedidoModeloList.get(position);
 //        ProdutoModelo produtoModelo = mProdutoModeloList.get(position);
-
 
         holder.textProduct.setText(mProdutoModelo.getmDescProduto());
         holder.textPrice.setText(mProdutoModelo.getmPreco());
         holder.textQuantity.setText(String.valueOf(pedidoModelo.getmQuantidade()));
         holder.editObservacao.setText(mProdutoModelo.getmObservacao());
 
+        holder.buttonAumentar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Aumentar um. ",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.buttonDiminuir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Dimuir um. ",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.buttonRemover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Remover item. ",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -70,6 +94,12 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
         TextView textQuantity;
         @BindView(R.id.edit_observacao)
         EditText editObservacao;
+        @BindView(R.id.button_diminuir)
+        Button buttonDiminuir;
+        @BindView(R.id.button_aumentar)
+        Button buttonAumentar;
+        @BindView(R.id.button_remover)
+        Button buttonRemover;
 
         public ProductViewHolder(View itemView) {
             super(itemView);

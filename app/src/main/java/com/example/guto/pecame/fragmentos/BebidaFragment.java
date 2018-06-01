@@ -2,6 +2,7 @@ package com.example.guto.pecame.fragmentos;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +14,20 @@ import android.view.ViewGroup;
 import com.example.guto.pecame.adaptadores.ProdutoAdaptador;
 import com.example.guto.pecame.modelo.ProdutoModelo;
 import com.example.guto.pecame.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +46,7 @@ public class BebidaFragment extends Fragment {
     private List<ProdutoModelo> produtoModeloList = new ArrayList<>();
     private ProdutoAdaptador produtoAdaptador;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public BebidaFragment() {
         // Required empty public constructor
@@ -51,52 +60,25 @@ public class BebidaFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_bebida, container, false);
         ButterKnife.bind(this,rootView);
 
-//        insertBD();
-        valueListener();
+        ReadProduct();
 
         return rootView;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-//        insertBD();
-    }
-
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        insertBD();
-//    }
-
-    public void valueListener(){
-
-        myRef.child("Produto").child("grupos").child("bebidas").addValueEventListener(new ValueEventListener() {
+    private void ReadProduct() {
+        db.collection("Produtos").document("Grupo").collection("bebidas").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    Log.v("Snapshot: ",dataSnapshot1.toString());
-                    ProdutoModelo value = dataSnapshot1.getValue(ProdutoModelo.class);
-                    Log.v("ProdutoModelo: ",value.toString());
-                    produtoModeloList.add(value);
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                for(DocumentSnapshot doc : documentSnapshots){
+                    produtoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco")));
                 }
 
                 produtoAdaptador = new ProdutoAdaptador(produtoModeloList);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(produtoAdaptador);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
 
-    public void insertBD(){
-        myRef.child("ProdutoModelo").child("drinks").push().setValue(new ProdutoModelo("Refrigerante Coca Cola 600 ml","R$ 7,00"));
-        myRef.child("ProdutoModelo").child("drinks").push().setValue(new ProdutoModelo("Refrigerante Guaraná Antartica 350 ml","R$ 5,00"));
-        myRef.child("ProdutoModelo").child("drinks").push().setValue(new ProdutoModelo("Cerveja Long Neck Stella Artois 275 ml","R$ 7,00"));
-        myRef.child("ProdutoModelo").child("drinks").push().setValue(new ProdutoModelo("Energetico Monster Energy 473 ml ","R$ 8,00"));
-    }
 }

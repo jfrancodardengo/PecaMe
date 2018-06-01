@@ -23,8 +23,6 @@ public class EscolhaMesaActivity extends AppCompatActivity {
     @BindView(R.id.edit_mesa) EditText editMesa;
     @BindView(R.id.button_abrir_mesa) Button buttonAbrirMesa;
 
-    public MesaModelo mesaModelo = new MesaModelo();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,25 +33,15 @@ public class EscolhaMesaActivity extends AppCompatActivity {
         buttonAbrirMesa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),ListaProdutoActivity.class);
+                Bundle bundleInformacoes = new Bundle();
+
                 //envio p/ lista activity o objeto mesa
-                int codMesa = Integer.parseInt(editMesa.getText().toString());
-
-                Log.v("Codigo mesa: ",String.valueOf(codMesa));
-
-//                mesaModelo = new MesaModelo(codMesa,true);
-                mesaModelo.setmCodMesa(Integer.parseInt(editMesa.getText().toString()));
-                mesaModelo.setmStatus(true);
-                intent.putExtra(EDIT_MESA,mesaModelo);
+                Intent intent = new Intent(getApplicationContext(),ListaProdutoActivity.class);
+                bundleInformacoes.putString(EDIT_MESA,editMesa.getText().toString());
+                intent.putExtras(bundleInformacoes);
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        showMessage();
     }
 
     @Override
@@ -65,9 +53,4 @@ public class EscolhaMesaActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void showMessage(){
-        Toast.makeText(this,"Mesa "+ editMesa.getText().toString() + " aberta.",Toast.LENGTH_LONG).show();
-    }
-
 }

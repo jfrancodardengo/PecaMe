@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.guto.pecame.R;
 import com.example.guto.pecame.adaptadores.PedidoAdaptador;
 import com.example.guto.pecame.adaptadores.ProdutoAdaptador;
+import com.example.guto.pecame.fragmentos.PedidoFragment;
 import com.example.guto.pecame.modelo.MesaModelo;
 import com.example.guto.pecame.modelo.PedidoModelo;
 import com.example.guto.pecame.modelo.ProdutoModelo;
@@ -31,8 +32,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PedidoActivity extends AppCompatActivity {
-    @BindView(R.id.recycler)
-    RecyclerView recyclerView;
     @BindView(R.id.text_numero_mesa)
     TextView textNumeroMesa;
     @BindView(R.id.text_valor_total)
@@ -46,6 +45,8 @@ public class PedidoActivity extends AppCompatActivity {
     private ProdutoModelo mProdutoModelo;
     private MesaModelo mesa;
 
+    PedidoFragment pedidoFragment;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
 
@@ -57,28 +58,30 @@ public class PedidoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent it = getIntent();
-        if (it.hasExtra(ProdutoAdaptador.PRODUTO_PARCELABLE)) {
-            mProdutoModelo = it.getExtras().getParcelable(ProdutoAdaptador.PRODUTO_PARCELABLE);
-        }
+//        Intent it = getIntent();
+//        if (it.hasExtra(ProdutoAdaptador.PRODUTO_PARCELABLE)) {
+//            mProdutoModelo = it.getExtras().getParcelable(ProdutoAdaptador.PRODUTO_PARCELABLE);
+//        }
+//
+//        if (it.hasExtra(EscolhaMesaActivity.EDIT_MESA)) {
+//            mesa = it.getExtras().getParcelable(EscolhaMesaActivity.EDIT_MESA);
+//        }
+//
+//        textNumeroMesa.setText(mesa.getmCodMesa());
+//
+//        buttonFinalizarPedido.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(context,"Finalizado o pedido e enviado para a produção.",Toast.LENGTH_LONG).show();
+//                mesa.setmStatus(false);
+//            }
+//        });
 
-        if (it.hasExtra(EscolhaMesaActivity.EDIT_MESA)) {
-            mesa = it.getExtras().getParcelable(EscolhaMesaActivity.EDIT_MESA);
-        }
+        pedidoFragment = new PedidoFragment();
 
-        textNumeroMesa.setText(mesa.getmCodMesa());
-
-        buttonFinalizarPedido.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"Finalizado o pedido e enviado para a produção.",Toast.LENGTH_LONG).show();
-                mesa.setmStatus(false);
-            }
-        });
-
-        pedidoAdaptador = new PedidoAdaptador(mPedidoModeloList,mProdutoModelo);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(pedidoAdaptador);
+//        pedidoAdaptador = new PedidoAdaptador(mPedidoModeloList,mProdutoModelo);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(pedidoAdaptador);
 
 //        produtoModeloList.add(new ProdutoModelo("Burguer Zumbi dos Palmares","R$ 12,00",1));
 //        produtoModeloList.add(new ProdutoModelo("Burguer Barack Obama","R$ 12,00",1));

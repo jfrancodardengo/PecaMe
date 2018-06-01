@@ -1,8 +1,10 @@
 package com.example.guto.pecame.fragmentos;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,12 +16,23 @@ import android.view.ViewGroup;
 import com.example.guto.pecame.adaptadores.ProdutoAdaptador;
 import com.example.guto.pecame.modelo.ProdutoModelo;
 import com.example.guto.pecame.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +50,7 @@ public class HamburguerFragment extends Fragment {
     private List<ProdutoModelo> produtoModeloList = new ArrayList<>();
     ProdutoAdaptador produtoAdaptador;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference();
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public HamburguerFragment() {
         // Required empty public constructor
@@ -53,9 +64,8 @@ public class HamburguerFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_hamburguer, container, false);
         ButterKnife.bind(this,rootView);
 
-//        insertBD();
+        ReadProduct();
 
-        valueListener();
         return rootView;
     }
 
@@ -65,45 +75,20 @@ public class HamburguerFragment extends Fragment {
 //        insertBD();
     }
 
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        insertBD();
-//    }
-
-    public void valueListener(){
-
-        myRef.child("Produto").child("grupos").child("comidas").addValueEventListener(new ValueEventListener() {
+    private void ReadProduct() {
+        db.collection("Produtos").document("Grupo").collection("comidas").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    Log.v("Snapshot: ",dataSnapshot1.toString());
-                    ProdutoModelo value = dataSnapshot1.getValue(ProdutoModelo.class);
-                    Log.v("ProdutoModelo: ",value.toString());
-                    produtoModeloList.add(value);
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                for(DocumentSnapshot doc : documentSnapshots){
+                    produtoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco")));
                 }
 
                 produtoAdaptador = new ProdutoAdaptador(produtoModeloList);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(produtoAdaptador);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
 
-    public void insertBD(){
-        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Mister","R$ 15,00"));
-        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Brutus","R$ 22,00"));
-        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Classic","R$ 11,00"));
-        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Levíssimo","R$ 17,00"));
-        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Espetacular","R$ 17,00"));
-        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Modesto","R$ 13,00"));
-        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Fabuloso","R$ 15,00"));
-        myRef.child("ProdutoModelo").child("hamburguers").push().setValue(new ProdutoModelo("Frescão","R$ 14,00"));
-    }
 }

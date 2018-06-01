@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.guto.pecame.modelo.ProdutoModelo;
 import com.example.guto.pecame.R;
@@ -51,10 +52,10 @@ public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.Prod
 //            }
 //        });
 
-        Intent it = new Intent(context, ListaProdutoActivity.class);
-        //envio p/ lista activity o objeto produto
-        it.putExtra(PRODUTO_PARCELABLE, produtoModelo);
-        context.startActivity(it);
+//        Intent it = new Intent(context, ListaProdutoActivity.class);
+//        //envio p/ lista activity o objeto produto
+//        it.putExtra(PRODUTO_PARCELABLE, produtoModelo);
+//        context.startActivity(it);
 
         return new ProductViewHolder(rootView);
     }
@@ -73,6 +74,8 @@ public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.Prod
                 if (holder.checkItem.isChecked()) {
                     //ao marcar o check, eu associo a posição do item ao objeto produto
                     produtoModelo.setmCodProduto((int) getItemId(position));
+
+                    Toast.makeText(context,"Item: " + position,Toast.LENGTH_LONG).show();
                 }
             }
         });
