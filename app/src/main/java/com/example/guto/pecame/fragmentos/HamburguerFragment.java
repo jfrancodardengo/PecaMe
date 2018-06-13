@@ -1,38 +1,28 @@
 package com.example.guto.pecame.fragmentos;
 
 
-import android.os.AsyncTask;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.guto.pecame.AdapterCallback;
 import com.example.guto.pecame.adaptadores.ProdutoAdaptador;
 import com.example.guto.pecame.modelo.ProdutoModelo;
 import com.example.guto.pecame.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
+import com.example.guto.pecame.ui.ListaProdutoActivity;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,17 +33,21 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HamburguerFragment extends Fragment {
+@SuppressLint("ValidFragment")
+public class HamburguerFragment extends Fragment implements AdapterCallback{
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
     private List<ProdutoModelo> produtoModeloList = new ArrayList<>();
-    ProdutoAdaptador produtoAdaptador;
+    private ProdutoAdaptador mProdutoAdaptador;
+    private ListaProdutoActivity mActivity;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public HamburguerFragment() {
+    @SuppressLint("ValidFragment")
+    public HamburguerFragment(ListaProdutoActivity listaProdutoActivity) {
         // Required empty public constructor
+        this.mActivity = listaProdutoActivity;
     }
 
 
@@ -69,12 +63,6 @@ public class HamburguerFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-//        insertBD();
-    }
-
     private void ReadProduct() {
         db.collection("Produtos").document("Grupo").collection("comidas").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -83,12 +71,16 @@ public class HamburguerFragment extends Fragment {
                     produtoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco")));
                 }
 
-                produtoAdaptador = new ProdutoAdaptador(produtoModeloList);
+                mProdutoAdaptador = new ProdutoAdaptador(produtoModeloList,HamburguerFragment.this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setHasFixedSize(true);
-                recyclerView.setAdapter(produtoAdaptador);
+                recyclerView.setAdapter(mProdutoAdaptador);
             }
         });
     }
 
+    @Override
+    public void onCheckItemCallback(ProdutoModelo produto) {
+        Toast.makeText(getContext(),"Item: " + produto.getmDescProduto().toString(),Toast.LENGTH_SHORT).show();
+    }
 }

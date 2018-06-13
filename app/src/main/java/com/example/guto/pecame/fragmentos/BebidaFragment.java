@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.guto.pecame.AdapterCallback;
 import com.example.guto.pecame.adaptadores.ProdutoAdaptador;
 import com.example.guto.pecame.modelo.ProdutoModelo;
 import com.example.guto.pecame.R;
@@ -39,7 +41,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BebidaFragment extends Fragment {
+public class BebidaFragment extends Fragment implements AdapterCallback {
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
@@ -73,7 +75,7 @@ public class BebidaFragment extends Fragment {
                     produtoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco")));
                 }
 
-                produtoAdaptador = new ProdutoAdaptador(produtoModeloList);
+                produtoAdaptador = new ProdutoAdaptador(produtoModeloList,BebidaFragment.this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(produtoAdaptador);
@@ -81,4 +83,8 @@ public class BebidaFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onCheckItemCallback(ProdutoModelo produto) {
+        Toast.makeText(getContext(),"Item: " + produto.getmDescProduto().toString(),Toast.LENGTH_SHORT).show();
+    }
 }

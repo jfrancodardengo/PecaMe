@@ -44,11 +44,13 @@ public class ListaProdutoActivity extends AppCompatActivity {
     TextView textNumeroMesa;
     @BindView(R.id.floating_button_adicionar_produto)
     FloatingActionButton buttonAdicionarProduto;
-
-    Context context;
-
+    
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
+    //TODO:lista dos selecionados
+    List<ProdutoModelo> selecionados = new ArrayList<>();
+    ProdutoAdaptador produtoAdaptador=null;
+    ProdutoModelo produtoModelo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +63,17 @@ public class ListaProdutoActivity extends AppCompatActivity {
         buttonAdicionarProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                produtoModelo = produtoAdaptador.getProduto();
+//                selecionados = produtoAdaptador.getProdutos();
+//                for (int i = 0; i < selecionados.size(); i++) {
+//                    produtoModelo = selecionados.get(i);
+                    updateSelectProduct(produtoModelo,true);
+//                }
+
+                //TODO:Verificar esse depois
 //                Toast.makeText(getApplicationContext(),"Ir para pedido",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), PedidoActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), PedidoActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -81,7 +91,8 @@ public class ListaProdutoActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HamburguerFragment(), "Comidas");
+        //TODO: Criado uma referencia da activity no fragment
+        adapter.addFragment(new HamburguerFragment(this), "Comidas");
         adapter.addFragment(new BebidaFragment(), "Bebidas");
 //        adapter.addFragment(new SobremesaFragment(), "Sobremesa");
         viewPager.setAdapter(adapter);
@@ -116,12 +127,6 @@ public class ListaProdutoActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main,menu);
-//        return true;
-//    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -130,6 +135,18 @@ public class ListaProdutoActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //TODO:update na lista, remover ou adicionar o produto
+    public void updateSelectProduct(ProdutoModelo produto, boolean isSelected){
+        StringBuffer responseText = new StringBuffer();
+        responseText.append("The following were selected...\n");
+        if(isSelected) {
+            responseText.append("\n" + produto.getmDescProduto().toString());
+        }
+
+        Toast.makeText(getApplicationContext(),
+                responseText, Toast.LENGTH_LONG).show();
     }
 
 }
