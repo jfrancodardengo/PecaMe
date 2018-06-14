@@ -18,7 +18,8 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="104dp"
-            app:srcCompat="@drawable/ic_order" />
+            app:srcCompat="@drawable/ic_order"
+            android:contentDescription="@string/imagem_de_comanda" />
 
         <ImageButton
             android:id="@+id/image_button_mesa"
@@ -27,7 +28,8 @@
             android:layout_alignBottom="@+id/image_button_comanda"
             android:layout_marginStart="26dp"
             android:layout_toEndOf="@+id/image_button_comanda"
-            app:srcCompat="@drawable/ic_table" />
+            app:srcCompat="@drawable/ic_table"
+            android:contentDescription="@string/imagem_de_mesa" />
 
         <TextView
             android:id="@+id/text_label_comanda"
@@ -36,7 +38,7 @@
             android:layout_alignBaseline="@+id/text_label_mesa"
             android:layout_alignBottom="@+id/text_label_mesa"
             android:layout_alignStart="@+id/image_button_comanda"
-            android:text="Comanda"
+            android:text="@string/label_comanda"
             android:textColor="@color/colorPrimaryDark" />
 
         <TextView
@@ -47,7 +49,7 @@
             android:layout_below="@+id/image_button_mesa"
             android:layout_marginEnd="14dp"
             android:layout_marginTop="11dp"
-            android:text="Mesas"
+            android:text="@string/label_mesa"
             android:textColor="@color/colorPrimaryDark" />
 
     </RelativeLayout>

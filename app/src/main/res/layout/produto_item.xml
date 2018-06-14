@@ -43,7 +43,6 @@
                 android:id="@+id/edit_observacao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/text_item_produto"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:paddingTop="@dimen/top_padding_textview"
@@ -56,6 +55,6 @@
         android:id="@+id/check_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical" />
+        android:layout_gravity="end|center_vertical" />
 
 </android.support.design.widget.CoordinatorLayout>

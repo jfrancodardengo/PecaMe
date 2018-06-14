@@ -78,17 +78,6 @@ public class PedidoActivity extends AppCompatActivity {
 //        });
 
         pedidoFragment = new PedidoFragment();
-
-//        pedidoAdaptador = new PedidoAdaptador(mPedidoModeloList,mProdutoModelo);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(pedidoAdaptador);
-
-//        produtoModeloList.add(new ProdutoModelo("Burguer Zumbi dos Palmares","R$ 12,00",1));
-//        produtoModeloList.add(new ProdutoModelo("Burguer Barack Obama","R$ 12,00",1));
-//        produtoModeloList.add(new ProdutoModelo("Burguer Michael Jordan","R$ 16,00",1));
-//        produtoModeloList.add(new ProdutoModelo("Burguer Bob Marley","R$ 18,00",1));
-//        produtoModeloList.add(new ProdutoModelo("Burguer Usain Bolt","R$ 18,00",1));
-//        produtoModeloList.add(new ProdutoModelo("Burguer Usain Bolt","R$ 22,00",1));
     }
 
     @Override

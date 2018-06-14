@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.guto.pecame.AdapterCallback;
 import com.example.guto.pecame.R;
 import com.example.guto.pecame.adaptadores.ProdutoAdaptador;
 import com.example.guto.pecame.fragmentos.BebidaFragment;
@@ -33,7 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ListaProdutoActivity extends AppCompatActivity {
+public class ListaProdutoActivity extends AppCompatActivity implements AdapterCallback {
     @BindView(R.id.tabs)
     TabLayout tabLayout;
     @BindView(R.id.toolbar)
@@ -44,11 +45,10 @@ public class ListaProdutoActivity extends AppCompatActivity {
     TextView textNumeroMesa;
     @BindView(R.id.floating_button_adicionar_produto)
     FloatingActionButton buttonAdicionarProduto;
-
-    Context context;
-
+    
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference();
+    //TODO:lista dos selecionados
+    List<ProdutoModelo> selecionados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +61,15 @@ public class ListaProdutoActivity extends AppCompatActivity {
         buttonAdicionarProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(),"Ir para pedido",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), PedidoActivity.class);
-                startActivity(intent);
+                StringBuffer responseText = new StringBuffer();
+        responseText.append("The following were selected...\n");
+                for(ProdutoModelo produto : selecionados){
+                    responseText.append("\n" + produto.getmDescProduto().toString());
+                }
+
+                Toast.makeText(getApplicationContext(),
+                responseText, Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -81,10 +87,26 @@ public class ListaProdutoActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HamburguerFragment(), "Comidas");
-        adapter.addFragment(new BebidaFragment(), "Bebidas");
-//        adapter.addFragment(new SobremesaFragment(), "Sobremesa");
+        //TODO: Criado uma referencia da activity no fragment
+        adapter.addFragment(new HamburguerFragment(this), "Comidas");
+        adapter.addFragment(new BebidaFragment(this), "Bebidas");
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCheckItemCallback(ProdutoModelo produto,boolean isSelected) {
+        if (isSelected) {
+            selecionados.add(produto);
+//            Log.v("Selecionados: ", selecionados.toArray().toString());
+            Toast.makeText(this,"Item adicionado: " + produto.getmDescProduto(),Toast.LENGTH_SHORT).show();
+        } else {
+            for (ProdutoModelo prod : selecionados) {
+                if (prod.getmCodProduto() == produto.getmCodProduto()) {
+                    selecionados.remove(prod);
+                    Toast.makeText(this,"Item removido: " + prod.getmDescProduto(),Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -115,12 +137,6 @@ public class ListaProdutoActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
-//    @Override
-//    public boolean onCreateOptionsenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main,menu);
-//        return true;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

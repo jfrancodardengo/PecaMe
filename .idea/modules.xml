@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PecaMe.iml" filepath="$PROJECT_DIR$/PecaMe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PecaMe-master.iml" filepath="$PROJECT_DIR$/PecaMe-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -82,9 +82,9 @@ public class SobremesaFragment extends Fragment {
                     produtoModeloList.add(value);
                 }
 
-                produtoAdaptador = new ProdutoAdaptador(produtoModeloList);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerView.setAdapter(produtoAdaptador);
+//                produtoAdaptador = new ProdutoAdaptador(produtoModeloList);
+//                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                recyclerView.setAdapter(produtoAdaptador);
             }
 
             @Override

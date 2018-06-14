@@ -4,4 +4,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_list_product">Produtos</string>
+    <string name="imagem_de_comanda">Imagem de comanda</string>
+    <string name="imagem_de_mesa">Imagem de mesa</string>
+    <string name="label_numero_mesa">Mesa:</string>
+    <string name="edit_mesa">Mesa</string>
+    <string name="button_abrir_mesa">Abrir mesa</string>
+    <string name="label_comanda">Comanda</string>
+    <string name="label_mesa">Mesas</string>
+    <string name="label_valor">Valor:</string>
+    <string name="button_diminuir">-</string>
+    <string name="text_quantidade">1</string>
+    <string name="button_adicionar">+</string>
+    <string name="button_remover">x</string>
 </resources>

@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/bottom_padding_textview"
-                    android:text="Mesa: "
+                    android:text="@string/label_numero_mesa"
                     android:textColor="@android:color/white" />
 
                 <TextView
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/bottom_padding_textview"
-                    android:text="Valor: "
+                    android:text="@string/label_valor"
                     android:textColor="@android:color/white" />
 
                 <TextView
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/bottom_padding_textview"
         android:elevation="6dp"
-        android:layout_gravity="right|bottom"
+        android:layout_gravity="end|bottom"
         android:src="@drawable/ic_done"
         app:fabSize="normal" />
 

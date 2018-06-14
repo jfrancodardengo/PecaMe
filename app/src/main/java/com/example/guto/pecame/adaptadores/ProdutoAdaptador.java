@@ -12,10 +12,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.guto.pecame.AdapterCallback;
 import com.example.guto.pecame.modelo.ProdutoModelo;
 import com.example.guto.pecame.R;
 import com.example.guto.pecame.ui.ListaProdutoActivity;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,15 +29,18 @@ import butterknife.ButterKnife;
 public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.ProductViewHolder> {
     public static final String PRODUTO_PARCELABLE = "produto_parcelable";
 
-    private List<ProdutoModelo> mProdutoModeloList;
+    List<ProdutoModelo> selecionados = new ArrayList<ProdutoModelo>();
+    List<ProdutoModelo> mProdutoModeloList;
     ProdutoModelo produtoModelo;
     Context context;
+    private AdapterCallback mAdapterCallback;
 
     public ProdutoAdaptador() {
     }
 
-    public ProdutoAdaptador(List<ProdutoModelo> mProdutoModeloList) {
+    public ProdutoAdaptador(List<ProdutoModelo> mProdutoModeloList, AdapterCallback adapterCallback) {
         this.mProdutoModeloList = mProdutoModeloList;
+        this.mAdapterCallback = adapterCallback;
     }
 
     @NonNull
@@ -41,22 +48,6 @@ public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.Prod
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         View rootView = LayoutInflater.from(context).inflate(R.layout.produto_item, parent, false);
-
-//        rootView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent it = new Intent(context,DetalheProdutoActivity.class);
-//                //envio p/ detalhe do o objeto produto
-//                it.putExtra(EDIT_MESA,produtoModelo);
-//                context.startActivity(it);
-//            }
-//        });
-
-//        Intent it = new Intent(context, ListaProdutoActivity.class);
-//        //envio p/ lista activity o objeto produto
-//        it.putExtra(PRODUTO_PARCELABLE, produtoModelo);
-//        context.startActivity(it);
-
         return new ProductViewHolder(rootView);
     }
 
@@ -68,15 +59,16 @@ public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.Prod
         holder.textPrice.setText(produtoModelo.getmPreco());
         holder.editObservacao.setText(produtoModelo.getmObservacao());
 
+        holder.checkItem.setChecked(produtoModelo.isSelected());
+        holder.checkItem.setTag(produtoModelo);
+
         holder.checkItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.checkItem.isChecked()) {
-                    //ao marcar o check, eu associo a posição do item ao objeto produto
-                    produtoModelo.setmCodProduto((int) getItemId(position));
-
-                    Toast.makeText(context,"Item: " + position,Toast.LENGTH_LONG).show();
-                }
+                CheckBox cb = (CheckBox) v;
+                ProdutoModelo produto = (ProdutoModelo) cb.getTag();
+                produto.setSelected(cb.isChecked());
+                mAdapterCallback.onCheckItemCallback(produto,cb.isChecked());
             }
         });
     }
@@ -84,6 +76,19 @@ public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.Prod
     @Override
     public int getItemCount() {
         return mProdutoModeloList.size();
+    }
+
+    public Object getItem(int posicao) {
+        // TODO Auto-generated method stub
+        return mProdutoModeloList.get(posicao);
+    }
+
+    public ProdutoModelo getProduto(){
+        return this.produtoModelo;
+    }
+
+    public List<ProdutoModelo> getProdutos() {
+        return this.selecionados;
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {

@@ -1,6 +1,7 @@
 package com.example.guto.pecame.fragmentos;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.guto.pecame.AdapterCallback;
 import com.example.guto.pecame.adaptadores.ProdutoAdaptador;
 import com.example.guto.pecame.modelo.ProdutoModelo;
 import com.example.guto.pecame.R;
+import com.example.guto.pecame.ui.ListaProdutoActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -39,17 +43,21 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BebidaFragment extends Fragment {
+@SuppressLint("ValidFragment")
+public class BebidaFragment extends Fragment{
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
     private List<ProdutoModelo> produtoModeloList = new ArrayList<>();
     private ProdutoAdaptador produtoAdaptador;
+    private ListaProdutoActivity mActivity;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public BebidaFragment() {
+    @SuppressLint("ValidFragment")
+    public BebidaFragment(ListaProdutoActivity listaProdutoActivity) {
         // Required empty public constructor
+        this.mActivity = listaProdutoActivity;
     }
 
 
@@ -73,7 +81,7 @@ public class BebidaFragment extends Fragment {
                     produtoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco")));
                 }
 
-                produtoAdaptador = new ProdutoAdaptador(produtoModeloList);
+                produtoAdaptador = new ProdutoAdaptador(produtoModeloList,mActivity);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(produtoAdaptador);
