@@ -41,9 +41,7 @@ public class PedidoActivity extends AppCompatActivity {
 
     Context context;
     private List<PedidoModelo> mPedidoModeloList;
-    private PedidoAdaptador pedidoAdaptador;
-    private ProdutoModelo mProdutoModelo;
-    private MesaModelo mesa;
+    List<ProdutoModelo> selecionados;
 
     PedidoFragment pedidoFragment;
 
@@ -58,24 +56,13 @@ public class PedidoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        Intent it = getIntent();
-//        if (it.hasExtra(ProdutoAdaptador.PRODUTO_PARCELABLE)) {
-//            mProdutoModelo = it.getExtras().getParcelable(ProdutoAdaptador.PRODUTO_PARCELABLE);
-//        }
-//
-//        if (it.hasExtra(EscolhaMesaActivity.EDIT_MESA)) {
-//            mesa = it.getExtras().getParcelable(EscolhaMesaActivity.EDIT_MESA);
-//        }
-//
-//        textNumeroMesa.setText(mesa.getmCodMesa());
-//
-//        buttonFinalizarPedido.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(context,"Finalizado o pedido e enviado para a produção.",Toast.LENGTH_LONG).show();
-//                mesa.setmStatus(false);
-//            }
-//        });
+
+        Intent intent = getIntent();
+        Bundle informacoes = intent.getExtras();
+        selecionados = informacoes.getParcelableArrayList("PRODUTOS_SELECIONADOS");
+        textNumeroMesa.setText(informacoes.getString(EscolhaMesaActivity.EDIT_MESA));
+
+        receberProdutos();
 
         pedidoFragment = new PedidoFragment();
     }
@@ -88,6 +75,18 @@ public class PedidoActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void receberProdutos(){
+        ProdutoModelo prod=null;
+        StringBuffer responseText = new StringBuffer();
+        responseText.append("Recebidos.\n");
+        for (int i=0;i< selecionados.size();i++) {
+            prod = selecionados.get(i);
+//            mPedidoModeloList.add(new PedidoModelo(1,"",prod));
+            responseText.append("\n" + prod.getmDescProduto().toString());
+        }
+        Toast.makeText(this,responseText,Toast.LENGTH_SHORT).show();
     }
 
 }

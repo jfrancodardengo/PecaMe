@@ -78,19 +78,6 @@ public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.Prod
         return mProdutoModeloList.size();
     }
 
-    public Object getItem(int posicao) {
-        // TODO Auto-generated method stub
-        return mProdutoModeloList.get(posicao);
-    }
-
-    public ProdutoModelo getProduto(){
-        return this.produtoModelo;
-    }
-
-    public List<ProdutoModelo> getProdutos() {
-        return this.selecionados;
-    }
-
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.text_product)
         TextView textProduct;

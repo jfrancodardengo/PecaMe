@@ -53,10 +53,10 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
         final PedidoModelo pedidoModelo = mPedidoModeloList.get(position);
 //        ProdutoModelo produtoModelo = mProdutoModeloList.get(position);
 
-        holder.textProduct.setText(mProdutoModelo.getmDescProduto());
-        holder.textPrice.setText(mProdutoModelo.getmPreco());
+        holder.textProduct.setText(pedidoModelo.getmProduto().getmDescProduto());
+        holder.textPrice.setText(pedidoModelo.getmProduto().getmPreco());
         holder.textQuantity.setText(String.valueOf(pedidoModelo.getmQuantidade()));
-        holder.editObservacao.setText(mProdutoModelo.getmObservacao());
+        holder.editObservacao.setText(pedidoModelo.getmProduto().getmObservacao());
 
         holder.buttonAumentar.setOnClickListener(new View.OnClickListener() {
             @Override

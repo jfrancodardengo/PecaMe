@@ -9,16 +9,22 @@ public class PedidoModelo implements Parcelable{
     private int mCodPedido;
     private int mQuantidade;
     private String mValor;
-    private List<DetalheProdutoModelo> mItensProdutos;
+    private ProdutoModelo mProduto;
 
     public PedidoModelo() {
     }
 
-    public PedidoModelo(int mCodPedido, int mQuantidade, String mValor, List<DetalheProdutoModelo> mItensProdutos) {
+    public PedidoModelo(int mCodPedido, int mQuantidade, String mValor,ProdutoModelo produtoModelo) {
         this.mCodPedido = mCodPedido;
         this.mQuantidade = mQuantidade;
         this.mValor = mValor;
-        this.mItensProdutos = mItensProdutos;
+        this.mProduto = produtoModelo;
+    }
+
+    public PedidoModelo(int mQuantidade, String mValor,ProdutoModelo produtoModelo) {
+        this.mQuantidade = mQuantidade;
+        this.mValor = mValor;
+        this.mProduto = produtoModelo;
     }
 
     protected PedidoModelo(Parcel in) {
@@ -63,7 +69,11 @@ public class PedidoModelo implements Parcelable{
         return mValor;
     }
 
-    public List<DetalheProdutoModelo> getmItensProdutos() {
-        return mItensProdutos;
+    public ProdutoModelo getmProduto() {
+        return mProduto;
+    }
+
+    public void setmProduto(ProdutoModelo mProduto) {
+        this.mProduto = mProduto;
     }
 }

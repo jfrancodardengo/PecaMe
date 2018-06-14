@@ -2,6 +2,7 @@ package com.example.guto.pecame.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -61,14 +62,14 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
         buttonAdicionarProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringBuffer responseText = new StringBuffer();
-        responseText.append("The following were selected...\n");
-                for(ProdutoModelo produto : selecionados){
-                    responseText.append("\n" + produto.getmDescProduto().toString());
-                }
-
-                Toast.makeText(getApplicationContext(),
-                responseText, Toast.LENGTH_LONG).show();
+                //TODO:Inserir em pedidoActivity os itens selecionados
+                Bundle bundleInformacoes = new Bundle();
+                //envio p/ pedido activity o array de produtos selecionados
+                Intent intent = new Intent(getApplicationContext(),PedidoActivity.class);
+                bundleInformacoes.putParcelableArrayList("PRODUTOS_SELECIONADOS", (ArrayList<? extends Parcelable>) selecionados);
+                intent.putExtras(bundleInformacoes);
+                intent.putExtra(EscolhaMesaActivity.EDIT_MESA,textNumeroMesa.getText());
+                startActivity(intent);
 
             }
         });
