@@ -7,5 +7,5 @@ import com.example.guto.pecame.modelo.ProdutoModelo;
  */
 
 public interface AdapterCallback {
-    void onCheckItemCallback(ProdutoModelo produto);
+    void onCheckItemCallback(ProdutoModelo produto,boolean isSelected);
 }
