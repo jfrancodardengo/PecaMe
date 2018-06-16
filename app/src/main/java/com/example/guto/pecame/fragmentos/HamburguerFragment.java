@@ -10,9 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.guto.pecame.AdapterCallback;
 import com.example.guto.pecame.adaptadores.ProdutoAdaptador;
 import com.example.guto.pecame.modelo.ProdutoModelo;
 import com.example.guto.pecame.R;
@@ -38,18 +36,16 @@ public class HamburguerFragment extends Fragment{
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
-    private List<ProdutoModelo> produtoModeloList = new ArrayList<>();
+    private List<ProdutoModelo> mProdutoModeloList = new ArrayList<>();
     private ProdutoAdaptador mProdutoAdaptador;
     private ListaProdutoActivity mActivity;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    @SuppressLint("ValidFragment")
     public HamburguerFragment(ListaProdutoActivity listaProdutoActivity) {
         // Required empty public constructor
         this.mActivity = listaProdutoActivity;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,10 +64,10 @@ public class HamburguerFragment extends Fragment{
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 for(DocumentSnapshot doc : documentSnapshots){
-                    produtoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco")));
+                    mProdutoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco")));
                 }
 
-                mProdutoAdaptador = new ProdutoAdaptador(produtoModeloList,mActivity);
+                mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(mProdutoAdaptador);

@@ -1,6 +1,5 @@
 package com.example.guto.pecame.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,21 +11,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.guto.pecame.AdapterCallback;
+import com.example.guto.pecame.utils.AdapterCallback;
 import com.example.guto.pecame.R;
-import com.example.guto.pecame.adaptadores.ProdutoAdaptador;
 import com.example.guto.pecame.fragmentos.BebidaFragment;
-import com.example.guto.pecame.fragmentos.SobremesaFragment;
 import com.example.guto.pecame.fragmentos.HamburguerFragment;
-import com.example.guto.pecame.modelo.MesaModelo;
 import com.example.guto.pecame.modelo.ProdutoModelo;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -48,8 +42,8 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
     FloatingActionButton buttonAdicionarProduto;
     
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //TODO:lista dos selecionados
-    List<ProdutoModelo> selecionados = new ArrayList<>();
+    //TODO:lista dos mSelecionados
+    private List<ProdutoModelo> mSelecionados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,17 +56,21 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
         buttonAdicionarProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO:Inserir em pedidoActivity os itens selecionados
+                //TODO:Inserir em pedidoActivity os itens mSelecionados
                 Bundle bundleInformacoes = new Bundle();
-                //envio p/ pedido activity o array de produtos selecionados
+                //envio p/ pedido activity o array de produtos mSelecionados
                 Intent intent = new Intent(getApplicationContext(),PedidoActivity.class);
-                bundleInformacoes.putParcelableArrayList("PRODUTOS_SELECIONADOS", (ArrayList<? extends Parcelable>) selecionados);
+                bundleInformacoes.putParcelableArrayList("PRODUTOS_SELECIONADOS", (ArrayList<? extends Parcelable>) mSelecionados);
                 intent.putExtras(bundleInformacoes);
                 intent.putExtra(EscolhaMesaActivity.EDIT_MESA,textNumeroMesa.getText());
                 startActivity(intent);
 
             }
         });
+
+        if (null != savedInstanceState) {
+            mSelecionados = savedInstanceState.getParcelableArrayList("chave");
+        }
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -86,28 +84,45 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
 
     }
 
+    @Override
+    public void onCheckItemCallback(ProdutoModelo produto,boolean isSelected) {
+        if (isSelected) {
+            mSelecionados.add(produto);
+//            Log.v("Selecionados: ", mSelecionados.toArray().toString());
+            Toast.makeText(this,"Item adicionado: " + produto.getmDescProduto(),Toast.LENGTH_SHORT).show();
+        } else {
+            for (ProdutoModelo prod : mSelecionados) {
+                if (prod.getmCodProduto() == produto.getmCodProduto()) {
+                    mSelecionados.remove(prod);
+                    Toast.makeText(this,"Item removido: " + prod.getmDescProduto(),Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelableArrayList("chave", new ArrayList<>(mSelecionados));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         //TODO: Criado uma referencia da activity no fragment
         adapter.addFragment(new HamburguerFragment(this), "Comidas");
         adapter.addFragment(new BebidaFragment(this), "Bebidas");
         viewPager.setAdapter(adapter);
-    }
-
-    @Override
-    public void onCheckItemCallback(ProdutoModelo produto,boolean isSelected) {
-        if (isSelected) {
-            selecionados.add(produto);
-//            Log.v("Selecionados: ", selecionados.toArray().toString());
-            Toast.makeText(this,"Item adicionado: " + produto.getmDescProduto(),Toast.LENGTH_SHORT).show();
-        } else {
-            for (ProdutoModelo prod : selecionados) {
-                if (prod.getmCodProduto() == produto.getmCodProduto()) {
-                    selecionados.remove(prod);
-                    Toast.makeText(this,"Item removido: " + prod.getmDescProduto(),Toast.LENGTH_LONG).show();
-                }
-            }
-        }
     }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -139,15 +154,6 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 }
 

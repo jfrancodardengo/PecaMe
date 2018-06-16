@@ -1,7 +1,6 @@
 package com.example.guto.pecame.adaptadores;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,10 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.guto.pecame.utils.PedidoCallback;
 import com.example.guto.pecame.R;
 import com.example.guto.pecame.modelo.PedidoModelo;
-import com.example.guto.pecame.modelo.ProdutoModelo;
-import com.example.guto.pecame.ui.ListaProdutoActivity;
 
 import java.util.List;
 
@@ -23,35 +21,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.ProductViewHolder> {
-    Context context;
-//    private List<ProdutoModelo> mProdutoModeloList;
-    private ProdutoModelo mProdutoModelo;
+    private Context mContext;
     private List<PedidoModelo> mPedidoModeloList;
+    private PedidoCallback mListener;
 
-    public PedidoAdaptador() {
+    public PedidoAdaptador(List<PedidoModelo> pedidos, PedidoCallback listener) {
+        mPedidoModeloList = pedidos;
+        mListener = listener;
     }
-
-    public PedidoAdaptador(List<PedidoModelo> mPedidoModeloList, ProdutoModelo mProdutoModelo) {
-        this.mPedidoModeloList = mPedidoModeloList;
-        this.mProdutoModelo = mProdutoModelo;
-    }
-
-//    public PedidoAdaptador(List<PedidoModelo> mPedidoModeloList) {
-//        this.mPedidoModeloList = mPedidoModeloList;
-//    }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        View rootView = LayoutInflater.from(context).inflate(R.layout.produto_item_pedido,parent,false);
+        mContext = parent.getContext();
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.produto_item_pedido,parent,false);
         return new ProductViewHolder(rootView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ProductViewHolder holder, int position) {
         final PedidoModelo pedidoModelo = mPedidoModeloList.get(position);
-//        ProdutoModelo produtoModelo = mProdutoModeloList.get(position);
 
         holder.textProduct.setText(pedidoModelo.getmProduto().getmDescProduto());
         holder.textPrice.setText(pedidoModelo.getmProduto().getmPreco());
@@ -61,21 +50,25 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
         holder.buttonAumentar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Aumentar um. ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext,"Aumentar um. ",Toast.LENGTH_SHORT).show();
             }
         });
 
         holder.buttonDiminuir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Dimuir um. ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext,"Dimuir um. ",Toast.LENGTH_SHORT).show();
             }
         });
 
         holder.buttonRemover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Remover item. ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext,"Remover item. ",Toast.LENGTH_SHORT).show();
+
+                if ( null != mListener) {
+                    mListener.onPedidoRemovido(pedidoModelo.getmCodPedido());
+                }
             }
         });
     }

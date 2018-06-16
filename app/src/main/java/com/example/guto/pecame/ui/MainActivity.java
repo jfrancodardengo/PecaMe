@@ -20,17 +20,12 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.image_button_mesa)
     ImageButton imageButtonMesa;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
-//        insertBD();
 
         executeButton(imageButtonComanda,EscolhaMesaActivity.class);
         executeButton(imageButtonMesa,PedidoActivity.class);

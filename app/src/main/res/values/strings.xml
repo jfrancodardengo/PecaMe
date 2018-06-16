@@ -2,8 +2,6 @@
     <string name="app_name">PecaMe</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_list_product">Produtos</string>
     <string name="imagem_de_comanda">Imagem de comanda</string>
     <string name="imagem_de_mesa">Imagem de mesa</string>
     <string name="label_numero_mesa">Mesa:</string>
@@ -16,4 +14,7 @@
     <string name="text_quantidade">1</string>
     <string name="button_adicionar">+</string>
     <string name="button_remover">x</string>
+    <string name="item_selecionado">Item selecionado</string>
+    <string name="descricao_do_produto">Descrição do produto</string>
+    <string name="observacao">Observação</string>
 </resources>

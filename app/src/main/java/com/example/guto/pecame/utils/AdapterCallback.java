@@ -1,4 +1,4 @@
-package com.example.guto.pecame;
+package com.example.guto.pecame.utils;
 
 import com.example.guto.pecame.modelo.ProdutoModelo;
 

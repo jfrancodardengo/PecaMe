@@ -1,7 +1,6 @@
 package com.example.guto.pecame.adaptadores;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,16 +9,11 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.guto.pecame.AdapterCallback;
+import com.example.guto.pecame.utils.AdapterCallback;
 import com.example.guto.pecame.modelo.ProdutoModelo;
 import com.example.guto.pecame.R;
-import com.example.guto.pecame.ui.ListaProdutoActivity;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,10 +23,9 @@ import butterknife.ButterKnife;
 public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.ProductViewHolder> {
     public static final String PRODUTO_PARCELABLE = "produto_parcelable";
 
-    List<ProdutoModelo> selecionados = new ArrayList<ProdutoModelo>();
-    List<ProdutoModelo> mProdutoModeloList;
-    ProdutoModelo produtoModelo;
-    Context context;
+    private List<ProdutoModelo> mProdutoModeloList;
+    private ProdutoModelo mProdutoModelo;
+    private Context mContext;
     private AdapterCallback mAdapterCallback;
 
     public ProdutoAdaptador() {
@@ -46,21 +39,20 @@ public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.Prod
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        View rootView = LayoutInflater.from(context).inflate(R.layout.produto_item, parent, false);
+        mContext = parent.getContext();
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.produto_item, parent, false);
         return new ProductViewHolder(rootView);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull final ProductViewHolder holder, final int position) {
-        produtoModelo = mProdutoModeloList.get(position);
-        holder.textProduct.setText(produtoModelo.getmDescProduto());
-        holder.textPrice.setText(produtoModelo.getmPreco());
-        holder.editObservacao.setText(produtoModelo.getmObservacao());
+        mProdutoModelo = mProdutoModeloList.get(position);
+        holder.textProduct.setText(mProdutoModelo.getmDescProduto());
+        holder.textPrice.setText(mProdutoModelo.getmPreco());
+        holder.editObservacao.setText(mProdutoModelo.getmObservacao());
 
-        holder.checkItem.setChecked(produtoModelo.isSelected());
-        holder.checkItem.setTag(produtoModelo);
+        holder.checkItem.setChecked(mProdutoModelo.isSelected());
+        holder.checkItem.setTag(mProdutoModelo);
 
         holder.checkItem.setOnClickListener(new View.OnClickListener() {
             @Override

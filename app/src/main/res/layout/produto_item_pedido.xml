@@ -1,94 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/layout_margin"
-    android:background="@color/colorBackground">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/linearVertical"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="@dimen/layout_margin"
+        android:background="@color/colorBackground">
 
-        <TextView
-            android:id="@+id/text_product"
+        <LinearLayout
+            android:id="@+id/linearVertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/bottom_padding_textview"
-            android:paddingTop="@dimen/top_padding_textview"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/subheading_text_size"
-            tools:text="Produto" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_price"
+            <TextView
+                android:id="@+id/text_product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/bottom_padding_textview"
+                android:paddingTop="@dimen/top_padding_textview"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/subheading_text_size"
+                tools:text="Produto" />
+
+            <TextView
+                android:id="@+id/text_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/bottom_padding_textview"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="@dimen/body_text_size"
+                tools:text="Preço" />
+
+            <EditText
+                android:id="@+id/edit_observacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:focusable="false"
+                android:inputType="textPersonName"
+                android:paddingTop="@dimen/top_padding_textview"
+                android:hint="@string/observacao" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/bottom_padding_textview"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="@dimen/body_text_size"
-            tools:text="Preço" />
+            android:layout_marginStart="@dimen/layout_margin"
+            android:layout_toEndOf="@id/linearVertical"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/edit_observacao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:paddingTop="@dimen/top_padding_textview"
-            tools:text="Observação" />
+            <Button
+                android:id="@+id/button_diminuir"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/button_bg_round"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/button_diminuir"
+                android:textColor="@android:color/white" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/text_quantidade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/bottom_padding_textview"
+                android:paddingEnd="@dimen/bottom_padding_textview"
+                android:paddingStart="@dimen/bottom_padding_textview"
+                android:paddingTop="@dimen/top_padding_textview"
+                android:text="@string/text_quantidade"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/subheading_text_size" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/layout_margin"
-        android:layout_toEndOf="@id/linearVertical"
-        android:orientation="horizontal">
+            <Button
+                android:id="@+id/button_aumentar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/button_bg_round"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/button_adicionar"
+                android:textColor="@android:color/white" />
 
-        <Button
-            android:id="@+id/button_diminuir"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/button_bg_round"
-            android:backgroundTint="@color/colorPrimary"
-            android:text="@string/button_diminuir"
-            android:textColor="@android:color/white" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+            <Button
+                android:id="@+id/button_remover"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginHorizontal="120dp"
+                android:background="@drawable/button_bg_round"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/button_remover"
+                android:textColor="@android:color/white" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/text_quantidade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/bottom_padding_textview"
-            android:paddingEnd="@dimen/bottom_padding_textview"
-            android:paddingStart="@dimen/bottom_padding_textview"
-            android:paddingTop="@dimen/top_padding_textview"
-            android:text="@string/text_quantidade"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/subheading_text_size" />
-
-        <Button
-            android:id="@+id/button_aumentar"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/button_bg_round"
-            android:backgroundTint="@color/colorPrimary"
-            android:text="@string/button_adicionar"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/button_remover"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginHorizontal="170dp"
-            android:background="@drawable/button_bg_round"
-            android:backgroundTint="@color/colorAccent"
-            android:text="@string/button_remover"
-            android:textColor="@android:color/white" />
-
-    </LinearLayout>
-</RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

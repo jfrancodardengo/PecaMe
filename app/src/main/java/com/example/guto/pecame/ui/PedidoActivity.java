@@ -1,29 +1,18 @@
 package com.example.guto.pecame.ui;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.guto.pecame.utils.PedidoCallback;
 import com.example.guto.pecame.R;
-import com.example.guto.pecame.adaptadores.PedidoAdaptador;
-import com.example.guto.pecame.adaptadores.ProdutoAdaptador;
 import com.example.guto.pecame.fragmentos.PedidoFragment;
-import com.example.guto.pecame.modelo.MesaModelo;
 import com.example.guto.pecame.modelo.PedidoModelo;
 import com.example.guto.pecame.modelo.ProdutoModelo;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PedidoActivity extends AppCompatActivity {
+public class PedidoActivity extends AppCompatActivity implements PedidoCallback {
     @BindView(R.id.text_numero_mesa)
     TextView textNumeroMesa;
     @BindView(R.id.text_valor_total)
@@ -39,14 +28,9 @@ public class PedidoActivity extends AppCompatActivity {
     @BindView(R.id.floating_button_finalizar_pedido)
     FloatingActionButton buttonFinalizarPedido;
 
-    Context context;
-    private List<PedidoModelo> mPedidoModeloList;
-    List<ProdutoModelo> selecionados;
-
-    PedidoFragment pedidoFragment;
-
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference();
+    private List<PedidoModelo> mPedidoModeloList = new ArrayList<>();
+    private List<ProdutoModelo> mSelecionados;
+    private PedidoFragment mPedidoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +40,16 @@ public class PedidoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         Intent intent = getIntent();
         Bundle informacoes = intent.getExtras();
-        selecionados = informacoes.getParcelableArrayList("PRODUTOS_SELECIONADOS");
+        mSelecionados = informacoes.getParcelableArrayList("PRODUTOS_SELECIONADOS");
+
+        setListaPedido(mPedidoModeloList);
+
         textNumeroMesa.setText(informacoes.getString(EscolhaMesaActivity.EDIT_MESA));
 
-        receberProdutos();
-
-        pedidoFragment = new PedidoFragment();
+        mPedidoFragment = new PedidoFragment(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mPedidoFragment).commit();
     }
 
     @Override
@@ -77,16 +62,26 @@ public class PedidoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void receberProdutos(){
-        ProdutoModelo prod=null;
-        StringBuffer responseText = new StringBuffer();
-        responseText.append("Recebidos.\n");
-        for (int i=0;i< selecionados.size();i++) {
-            prod = selecionados.get(i);
-//            mPedidoModeloList.add(new PedidoModelo(1,"",prod));
-            responseText.append("\n" + prod.getmDescProduto().toString());
-        }
-        Toast.makeText(this,responseText,Toast.LENGTH_SHORT).show();
+    @Override
+    public void onPedidoRemovido(int codproduto) {
+
     }
 
+    @Override
+    public void setListaPedido(List<PedidoModelo> pedidos) {
+        for (ProdutoModelo produto : mSelecionados) {
+            PedidoModelo pedido = new PedidoModelo(0,1,0, produto);
+            pedidos.add(pedido);
+        }
+    }
+
+    @Override
+    public List<PedidoModelo> getPedidos() {
+        return mPedidoModeloList;
+    }
+
+    @Override
+    public void incrementaQuantidade(int codigo) {
+
+    }
 }

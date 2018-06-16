@@ -8,20 +8,20 @@ import java.util.List;
 public class PedidoModelo implements Parcelable{
     private int mCodPedido;
     private int mQuantidade;
-    private String mValor;
+    private float mValor;
     private ProdutoModelo mProduto;
 
     public PedidoModelo() {
     }
 
-    public PedidoModelo(int mCodPedido, int mQuantidade, String mValor,ProdutoModelo produtoModelo) {
+    public PedidoModelo(int mCodPedido, int mQuantidade, float mValor,ProdutoModelo produtoModelo) {
         this.mCodPedido = mCodPedido;
         this.mQuantidade = mQuantidade;
         this.mValor = mValor;
         this.mProduto = produtoModelo;
     }
 
-    public PedidoModelo(int mQuantidade, String mValor,ProdutoModelo produtoModelo) {
+    public PedidoModelo(int mQuantidade, float mValor,ProdutoModelo produtoModelo) {
         this.mQuantidade = mQuantidade;
         this.mValor = mValor;
         this.mProduto = produtoModelo;
@@ -30,7 +30,7 @@ public class PedidoModelo implements Parcelable{
     protected PedidoModelo(Parcel in) {
         mCodPedido = in.readInt();
         mQuantidade = in.readInt();
-        mValor = in.readString();
+        mValor = in.readFloat();
     }
 
     public static final Creator<PedidoModelo> CREATOR = new Creator<PedidoModelo>() {
@@ -54,7 +54,7 @@ public class PedidoModelo implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mCodPedido);
         dest.writeInt(mQuantidade);
-        dest.writeString(mValor);
+        dest.writeFloat(mValor);
     }
 
     public int getmCodPedido() {
@@ -65,7 +65,7 @@ public class PedidoModelo implements Parcelable{
         return mQuantidade;
     }
 
-    public String getmValor() {
+    public float getmValor() {
         return mValor;
     }
 

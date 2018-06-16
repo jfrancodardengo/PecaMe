@@ -46,7 +46,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:paddingTop="@dimen/top_padding_textview"
-                tools:text="Observação" />
+                android:hint="@string/observacao" />
 
         </LinearLayout>
     </LinearLayout>

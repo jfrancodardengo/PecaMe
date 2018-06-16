@@ -57,9 +57,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/appbar"
-            android:layout_marginLeft="@dimen/layout_margin"
+            android:layout_marginStart="@dimen/layout_margin"
             android:paddingTop="@dimen/top_padding_textview"
-            android:text="Item selecionado" />
+            android:text="@string/item_selecionado" />
 
         <TextView
             android:id="@+id/text_item_produto"
@@ -67,9 +67,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_label_item_produto"
-            android:layout_marginLeft="@dimen/layout_margin"
+            android:layout_marginStart="@dimen/layout_margin"
             android:paddingTop="@dimen/top_padding_textview"
-            android:text="Descrição do produto" />
+            android:text="@string/descricao_do_produto" />
 
         <!--<EditText-->
             <!--android:id="@+id/edit_observacao"-->
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_item_produto"
-            android:layout_marginLeft="@dimen/layout_margin"
+            android:layout_marginStart="@dimen/layout_margin"
             android:orientation="vertical">
 
             <LinearLayout
@@ -103,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginRight="@dimen/layout_margin"
+        android:layout_marginEnd="@dimen/layout_margin"
         android:orientation="vertical">
 
         <!--<android.support.design.widget.FloatingActionButton-->

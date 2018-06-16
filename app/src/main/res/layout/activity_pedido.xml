@@ -73,4 +73,16 @@
         android:src="@drawable/ic_done"
         app:fabSize="normal" />
 
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <!--<fragment android:id="@+id/container"-->
+    <!--android:name="com.example.guto.pecame.fragmentos.PedidoFragment"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
+
 </android.support.design.widget.CoordinatorLayout>
