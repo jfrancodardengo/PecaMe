@@ -8,5 +8,7 @@ public interface PedidoCallback {
     void onPedidoRemovido(int codproduto);
     List<PedidoModelo> getPedidos();
     void setListaPedido(List<PedidoModelo> pedidos);
-    void incrementaQuantidade(int codigo);
+    int incrementaQuantidade(int codigo,int quantidade);
+    int decrementaQuantidade(int codigo,int quantidade);
+    void totalPedido(int codigo, float valorItem,int id);
 }

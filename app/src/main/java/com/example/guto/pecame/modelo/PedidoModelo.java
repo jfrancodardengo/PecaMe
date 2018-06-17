@@ -69,6 +69,10 @@ public class PedidoModelo implements Parcelable{
         return mValor;
     }
 
+    public void setmValor(float mValor) {
+        this.mValor = mValor;
+    }
+
     public ProdutoModelo getmProduto() {
         return mProduto;
     }

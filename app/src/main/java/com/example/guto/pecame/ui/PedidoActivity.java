@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.guto.pecame.utils.PedidoCallback;
@@ -31,6 +32,8 @@ public class PedidoActivity extends AppCompatActivity implements PedidoCallback 
     private List<PedidoModelo> mPedidoModeloList = new ArrayList<>();
     private List<ProdutoModelo> mSelecionados;
     private PedidoFragment mPedidoFragment;
+    private ListaProdutoActivity mListaProdutoActivity;
+    private float valorTotal = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class PedidoActivity extends AppCompatActivity implements PedidoCallback 
         Bundle informacoes = intent.getExtras();
         mSelecionados = informacoes.getParcelableArrayList("PRODUTOS_SELECIONADOS");
 
+        valorTotal = informacoes.getFloat("VALOR_TOTAL");
+        textValorTotal.setText(String.valueOf(valorTotal));
         setListaPedido(mPedidoModeloList);
 
         textNumeroMesa.setText(informacoes.getString(EscolhaMesaActivity.EDIT_MESA));
@@ -81,7 +86,30 @@ public class PedidoActivity extends AppCompatActivity implements PedidoCallback 
     }
 
     @Override
-    public void incrementaQuantidade(int codigo) {
+    public int incrementaQuantidade(int codigo,int quantidade) {
+        return quantidade += 1;
+    }
+
+    @Override
+    public int decrementaQuantidade(int codigo,int quantidade) {
+        if(quantidade > 0) {
+            quantidade -= 1;
+        }
+        return quantidade;
+    }
+
+    @Override
+    public void totalPedido(int codigo, float valorItem,int id) {
+        switch (id){
+            case R.id.button_aumentar:
+                valorTotal += valorItem;
+                textValorTotal.setText(String.valueOf(valorTotal));
+                break;
+            case R.id.button_diminuir:
+                valorTotal -= valorItem;
+                textValorTotal.setText(String.valueOf(valorTotal));
+                break;
+        }
 
     }
 }

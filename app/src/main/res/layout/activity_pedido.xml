@@ -56,7 +56,7 @@
                     android:padding="@dimen/top_padding_textview"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/subheading_text_size"
-                    tools:text="Total" />
+                    tools:text="0.0" />
             </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
@@ -78,11 +78,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    <!--<fragment android:id="@+id/container"-->
-    <!--android:name="com.example.guto.pecame.fragmentos.PedidoFragment"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

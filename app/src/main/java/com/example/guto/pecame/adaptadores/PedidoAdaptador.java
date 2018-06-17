@@ -24,6 +24,8 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
     private Context mContext;
     private List<PedidoModelo> mPedidoModeloList;
     private PedidoCallback mListener;
+    private PedidoModelo mPedidoModelo;
+    private int quantidade = 0;
 
     public PedidoAdaptador(List<PedidoModelo> pedidos, PedidoCallback listener) {
         mPedidoModeloList = pedidos;
@@ -35,29 +37,34 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.produto_item_pedido,parent,false);
+
         return new ProductViewHolder(rootView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ProductViewHolder holder, int position) {
-        final PedidoModelo pedidoModelo = mPedidoModeloList.get(position);
+        mPedidoModelo = mPedidoModeloList.get(position);
 
-        holder.textProduct.setText(pedidoModelo.getmProduto().getmDescProduto());
-        holder.textPrice.setText(pedidoModelo.getmProduto().getmPreco());
-        holder.textQuantity.setText(String.valueOf(pedidoModelo.getmQuantidade()));
-        holder.editObservacao.setText(pedidoModelo.getmProduto().getmObservacao());
+        holder.textProduct.setText(mPedidoModelo.getmProduto().getmDescProduto());
+        holder.textPrice.setText(mPedidoModelo.getmProduto().getmPreco());
+        holder.textQuantity.setText(String.valueOf(mPedidoModelo.getmQuantidade()));
+        holder.editObservacao.setText(mPedidoModelo.getmProduto().getmObservacao());
 
         holder.buttonAumentar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"Aumentar um. ",Toast.LENGTH_SHORT).show();
+                quantidade = mListener.incrementaQuantidade(mPedidoModelo.getmProduto().getmCodProduto(),Integer.parseInt(holder.textQuantity.getText().toString()));
+                holder.displayQuantity(quantidade);
+                mListener.totalPedido(mPedidoModelo.getmProduto().getmCodProduto(),Float.parseFloat(holder.textPrice.getText().toString()),holder.buttonAumentar.getId());
             }
         });
 
         holder.buttonDiminuir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"Dimuir um. ",Toast.LENGTH_SHORT).show();
+                quantidade = mListener.decrementaQuantidade(mPedidoModelo.getmProduto().getmCodProduto(),Integer.parseInt(holder.textQuantity.getText().toString()));
+                holder.displayQuantity(quantidade);
+                mListener.totalPedido(mPedidoModelo.getmProduto().getmCodProduto(),Float.parseFloat(holder.textPrice.getText().toString()),holder.buttonDiminuir.getId());
             }
         });
 
@@ -67,7 +74,7 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
                 Toast.makeText(mContext,"Remover item. ",Toast.LENGTH_SHORT).show();
 
                 if ( null != mListener) {
-                    mListener.onPedidoRemovido(pedidoModelo.getmCodPedido());
+                    mListener.onPedidoRemovido(mPedidoModelo.getmCodPedido());
                 }
             }
         });
@@ -77,6 +84,7 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
     public int getItemCount() {
         return mPedidoModeloList.size();
     }
+
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.text_product)
@@ -97,6 +105,10 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
         public ProductViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+        }
+
+        private void displayQuantity(int numberOfTeas) {
+            textQuantity.setText(String.valueOf(numberOfTeas));
         }
     }
 }

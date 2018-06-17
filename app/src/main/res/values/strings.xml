@@ -9,7 +9,7 @@
     <string name="button_abrir_mesa">Abrir mesa</string>
     <string name="label_comanda">Comanda</string>
     <string name="label_mesa">Mesas</string>
-    <string name="label_valor">Valor:</string>
+    <string name="label_valor">Valor: R$</string>
     <string name="button_diminuir">-</string>
     <string name="text_quantidade">1</string>
     <string name="button_adicionar">+</string>
