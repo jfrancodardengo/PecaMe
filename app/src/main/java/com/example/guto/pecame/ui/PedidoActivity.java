@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.guto.pecame.utils.PedidoCallback;
 import com.example.guto.pecame.R;
@@ -69,7 +70,13 @@ public class PedidoActivity extends AppCompatActivity implements PedidoCallback 
 
     @Override
     public void onPedidoRemovido(int codproduto) {
-
+        PedidoModelo pedido=null;
+        for (int i=0;i< mPedidoModeloList.size();i++) {
+            pedido = mPedidoModeloList.get(i);
+            if(codproduto == pedido.getmProduto().getmCodProduto()){
+                mPedidoModeloList.remove(codproduto);
+            }
+        }
     }
 
     @Override
@@ -106,6 +113,10 @@ public class PedidoActivity extends AppCompatActivity implements PedidoCallback 
                 textValorTotal.setText(String.valueOf(valorTotal));
                 break;
             case R.id.button_diminuir:
+                valorTotal -= valorItem;
+                textValorTotal.setText(String.valueOf(valorTotal));
+                break;
+            case R.id.button_remover:
                 valorTotal -= valorItem;
                 textValorTotal.setText(String.valueOf(valorTotal));
                 break;

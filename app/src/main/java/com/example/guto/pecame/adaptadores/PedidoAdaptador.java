@@ -42,7 +42,7 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ProductViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ProductViewHolder holder, final int position) {
         mPedidoModelo = mPedidoModeloList.get(position);
 
         holder.textProduct.setText(mPedidoModelo.getmProduto().getmDescProduto());
@@ -71,10 +71,16 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
         holder.buttonRemover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"Remover item. ",Toast.LENGTH_SHORT).show();
-
-                if ( null != mListener) {
-                    mListener.onPedidoRemovido(mPedidoModelo.getmCodPedido());
+                float totalItem=0;
+                float preco = 0;
+                int quantity;
+                if ( null != mPedidoModeloList) {
+                    mPedidoModeloList.remove(mPedidoModelo.getmProduto().getmCodProduto());
+                    preco = Float.parseFloat(holder.textPrice.getText().toString());
+                    quantity = Integer.parseInt(holder.textQuantity.getText().toString());
+                    totalItem = quantity * preco;
+                    mListener.totalPedido(mPedidoModelo.getmProduto().getmCodProduto(),totalItem,holder.buttonRemover.getId());
+                    notifyDataSetChanged();
                 }
             }
         });
