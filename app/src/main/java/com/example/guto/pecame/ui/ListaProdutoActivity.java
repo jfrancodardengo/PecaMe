@@ -88,13 +88,11 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
 
     @Override
     public void onCheckItemCallback(ProdutoModelo produto,boolean isSelected) {
-        if (isSelected) {
-            mSelecionados.add(produto);
-        } else {
-            for (ProdutoModelo prod : mSelecionados) {
-                if (prod.getmCodProduto() == produto.getmCodProduto()) {
-                    mSelecionados.remove(prod);
-                }
+        synchronized (mSelecionados) {
+            if (isSelected) {
+                mSelecionados.add(produto);
+            } else {
+                mSelecionados.remove(produto);
             }
         }
     }
