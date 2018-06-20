@@ -45,6 +45,7 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
     private Intent mIntent;
     Bundle bundleInformacoes;
     PedidoWidgetProvider pedidoWidgetProvider;
+    String resultado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
             @Override
             public void onClick(View v) {
                 //TODO:chamando a pedidoWideget aqui
-                pedidoWidgetProvider = new PedidoWidgetProvider(mSelecionados);
+                pedidoWidgetProvider = new PedidoWidgetProvider();
                 bundleInformacoes = new Bundle();
                 //envio p/ pedido activity o array de produtos mSelecionados
                 mIntent = new Intent(getApplicationContext(),PedidoActivity.class);
@@ -159,6 +160,17 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    public String receberProdutos(){
+        String descricao;
+        String preco;
+        for(ProdutoModelo produto : mSelecionados) {
+            descricao = produto.getmDescProduto();
+            preco = produto.getmPreco();
+            resultado += descricao + preco + "\n";
+        }
+        return resultado;
     }
 
 }

@@ -56,6 +56,13 @@ public class PedidoActivity extends AppCompatActivity implements PedidoCallback 
 
         mPedidoFragment = new PedidoFragment(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mPedidoFragment).commit();
+
+        buttonFinalizarPedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Pedido enviado para produção. ",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

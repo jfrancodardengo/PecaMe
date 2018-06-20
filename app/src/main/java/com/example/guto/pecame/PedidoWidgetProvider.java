@@ -20,11 +20,7 @@ import java.util.List;
  */
 public class PedidoWidgetProvider extends AppWidgetProvider {
 
-    private List<ProdutoModelo> mSelecionados;
-
-    public PedidoWidgetProvider(List<ProdutoModelo> mSelecionados) {
-        this.mSelecionados = mSelecionados;
-    }
+        ListaProdutoActivity listaProdutoActivity = new ListaProdutoActivity();
 
 //    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
 //                                int appWidgetId,List<ProdutoModelo> selecionados) {
@@ -52,15 +48,19 @@ public class PedidoWidgetProvider extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
 //            updateAppWidget(context, appWidgetManager, appWidgetId,mSelecionados);
 
-            String resultado = receberProdutos(mSelecionados);
+            String resultado = listaProdutoActivity.receberProdutos();
             // Construct the RemoteViews object
             Toast.makeText(context,"RESULTADO: "+ resultado, Toast.LENGTH_SHORT).show();
 
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.pedido_widget_provider);
             views.setTextViewText(R.id.appwidget_text,resultado);
 
-            Intent intent = new Intent(context, MainActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
+            Intent intent = new Intent(context, PedidoWidgetProvider.class);
+            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+//            intent.putExtra("PRODUTOS",resultado);
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
             views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
 
             // Instruct the widget manager to update the widget
