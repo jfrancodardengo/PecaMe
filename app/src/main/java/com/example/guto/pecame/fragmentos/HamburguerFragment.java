@@ -64,7 +64,7 @@ public class HamburguerFragment extends Fragment{
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 for(DocumentSnapshot doc : documentSnapshots){
-                    mProdutoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco")));
+                    mProdutoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco"),doc.getString("observacao")));
                 }
 
                 mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity);

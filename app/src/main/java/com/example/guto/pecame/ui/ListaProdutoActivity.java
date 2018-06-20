@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.guto.pecame.PedidoWidgetProvider;
 import com.example.guto.pecame.utils.AdapterCallback;
 import com.example.guto.pecame.R;
 import com.example.guto.pecame.fragmentos.BebidaFragment;
@@ -39,12 +40,11 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
     TextView textNumeroMesa;
     @BindView(R.id.floating_button_adicionar_produto)
     FloatingActionButton buttonAdicionarProduto;
-    
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //TODO:lista dos mSelecionados
+
     private List<ProdutoModelo> mSelecionados = new ArrayList<>();
     private Intent mIntent;
     Bundle bundleInformacoes;
+    PedidoWidgetProvider pedidoWidgetProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,8 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
         buttonAdicionarProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO:Inserir em pedidoActivity os itens mSelecionados
+                //TODO:chamando a pedidoWideget aqui
+                pedidoWidgetProvider = new PedidoWidgetProvider(mSelecionados);
                 bundleInformacoes = new Bundle();
                 //envio p/ pedido activity o array de produtos mSelecionados
                 mIntent = new Intent(getApplicationContext(),PedidoActivity.class);
@@ -116,7 +117,6 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        //TODO: Criado uma referencia da activity no fragment
         adapter.addFragment(new HamburguerFragment(this), "Comidas");
         adapter.addFragment(new BebidaFragment(this), "Bebidas");
         viewPager.setAdapter(adapter);
@@ -160,7 +160,6 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
             return mFragmentTitleList.get(position);
         }
     }
-
 
 }
 

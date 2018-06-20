@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.guto.pecame.PedidoWidgetProvider;
 import com.example.guto.pecame.utils.PedidoCallback;
 import com.example.guto.pecame.R;
 import com.example.guto.pecame.fragmentos.PedidoFragment;
@@ -33,7 +34,6 @@ public class PedidoActivity extends AppCompatActivity implements PedidoCallback 
     private List<PedidoModelo> mPedidoModeloList = new ArrayList<>();
     private List<ProdutoModelo> mSelecionados;
     private PedidoFragment mPedidoFragment;
-    private ListaProdutoActivity mListaProdutoActivity;
     private float valorTotal = 0;
 
     @Override
