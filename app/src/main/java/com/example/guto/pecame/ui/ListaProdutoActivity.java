@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.guto.pecame.PedidoWidgetProvider;
+import com.example.guto.pecame.modelo.PedidoModelo;
 import com.example.guto.pecame.utils.AdapterCallback;
 import com.example.guto.pecame.R;
 import com.example.guto.pecame.fragmentos.BebidaFragment;
@@ -162,10 +163,10 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
         }
     }
 
-    public String receberProdutos(){
+    public String receberProdutos(List<ProdutoModelo> produtos){
         String descricao;
         String preco;
-        for(ProdutoModelo produto : mSelecionados) {
+        for(ProdutoModelo produto : produtos) {
             descricao = produto.getmDescProduto();
             preco = produto.getmPreco();
             resultado += descricao + preco + "\n";
@@ -173,6 +174,9 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
         return resultado;
     }
 
+    public List<ProdutoModelo> getProdutos() {
+        return mSelecionados;
+    }
 }
 
 
