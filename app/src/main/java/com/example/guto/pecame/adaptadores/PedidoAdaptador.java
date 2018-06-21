@@ -74,6 +74,7 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
                 float totalItem=0;
                 float preco = 0;
                 int quantity;
+
                 if ( null != mPedidoModeloList) {
                     mPedidoModeloList.remove(mPedidoModelo.getmProduto().getmCodProduto());
                     preco = Float.parseFloat(holder.textPrice.getText().toString());
@@ -113,8 +114,10 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
             ButterKnife.bind(this,itemView);
         }
 
-        private void displayQuantity(int numberOfTeas) {
-            textQuantity.setText(String.valueOf(numberOfTeas));
+        private void displayQuantity(int numQuantidade) {
+            textQuantity.setText(String.valueOf(numQuantidade));
         }
+
+
     }
 }

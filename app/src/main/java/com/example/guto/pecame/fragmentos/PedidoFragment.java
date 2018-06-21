@@ -64,4 +64,6 @@ public class PedidoFragment extends Fragment {
         mPedidoAdaptador = new PedidoAdaptador(mPedidoModeloList,mPedidoActivity);
         recyclerView.setAdapter(mPedidoAdaptador);
     }
+
+
 }

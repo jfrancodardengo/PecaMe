@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/layout_margin"
         android:background="@color/colorBackground">
@@ -85,20 +85,20 @@
                 android:text="@string/button_adicionar"
                 android:textColor="@android:color/white" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                >
-            <Button
-                android:id="@+id/button_remover"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginHorizontal="120dp"
-                android:background="@drawable/button_bg_round"
-                android:backgroundTint="@color/colorAccent"
-                android:text="@string/button_remover"
-                android:textColor="@android:color/white" />
-            </LinearLayout>
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/button_remover"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/button_bg_round"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="@string/button_remover"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
 
         </LinearLayout>
     </RelativeLayout>

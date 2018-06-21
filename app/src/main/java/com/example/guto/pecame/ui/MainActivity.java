@@ -17,8 +17,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.image_button_comanda)
     ImageButton imageButtonComanda;
-    @BindView(R.id.image_button_mesa)
-    ImageButton imageButtonMesa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         executeButton(imageButtonComanda,EscolhaMesaActivity.class);
-        executeButton(imageButtonMesa,PedidoActivity.class);
     }
 
     public void executeButton(View view, final Class classe){

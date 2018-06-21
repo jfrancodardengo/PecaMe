@@ -17,4 +17,6 @@
     <string name="item_selecionado">Item selecionado</string>
     <string name="descricao_do_produto">Descrição do produto</string>
     <string name="observacao">Observação</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

@@ -20,6 +20,7 @@ import com.example.guto.pecame.R;
 import com.example.guto.pecame.fragmentos.BebidaFragment;
 import com.example.guto.pecame.fragmentos.HamburguerFragment;
 import com.example.guto.pecame.modelo.ProdutoModelo;
+import com.example.guto.pecame.widget.PedidoWidgetProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
     private List<ProdutoModelo> mSelecionados = new ArrayList<>();
     private Intent mIntent;
     Bundle bundleInformacoes;
+    String resultado="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,7 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
                 mSelecionados.remove(produto);
             }
         }
+        PedidoWidgetProvider.updateAppWidget(this,this);
     }
 
     @Override
@@ -161,6 +164,16 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
         }
     }
 
+    public String receberProdutos(){
+        String descricao;
+        String preco;
+            for(ProdutoModelo produto : mSelecionados) {
+                descricao = produto.getmDescProduto();
+                preco = produto.getmPreco();
+                resultado += "Produto: " + descricao + "\n" + "Preço: " + preco + "\n";
+            }
+            return resultado;
+    }
 
 }
 

@@ -19,9 +19,10 @@ public class ProdutoModelo implements Parcelable{
     public ProdutoModelo() {
     }
 
-    public ProdutoModelo(String mDescProduto, String mPreco) {
+    public ProdutoModelo(String mDescProduto, String mPreco,String mObservacao) {
         this.mDescProduto = mDescProduto;
         this.mPreco = mPreco;
+        this.mObservacao = mObservacao;
     }
 
     public ProdutoModelo(int mCodProduto, String mDescProduto, String mPreco,String mObservacao,boolean isSelected) {
