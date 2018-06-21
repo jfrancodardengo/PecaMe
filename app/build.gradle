@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'Capstone'
+            keyPassword 'nanodegree'
+            storeFile file('C:/Users/CASA/Documents/PecaMe/keystore.jks')
+            storePassword 'nanodegree'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.guto.pecame"
@@ -14,6 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     buildToolsVersion '27.0.3'
