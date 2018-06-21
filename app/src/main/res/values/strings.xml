@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PecaMe</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="imagem_de_comanda">Imagem de comanda</string>
     <string name="imagem_de_mesa">Imagem de mesa</string>
     <string name="label_numero_mesa">Mesa:</string>
