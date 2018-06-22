@@ -2,6 +2,7 @@ package com.example.guto.pecame.fragmentos;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -40,7 +41,11 @@ public class HamburguerFragment extends Fragment{
     private ProdutoAdaptador mProdutoAdaptador;
     private ListaProdutoActivity mActivity;
 
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public HamburguerFragment() {
+    }
 
     public HamburguerFragment(ListaProdutoActivity listaProdutoActivity) {
         // Required empty public constructor
@@ -67,7 +72,15 @@ public class HamburguerFragment extends Fragment{
                     mProdutoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco"),doc.getString("observacao")));
                 }
 
-                mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity);
+                HamburguerFragment hamburguerFragment = new HamburguerFragment();
+
+                int idFragment = getFragmentManager().beginTransaction().
+                        replace(R.id.hamburguerFragment, new HamburguerFragment(), "HAMBURGUER").
+                        commit();
+
+//                mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity,getTargetFragment());
+                mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity,idFragment);
+//                mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(mProdutoAdaptador);

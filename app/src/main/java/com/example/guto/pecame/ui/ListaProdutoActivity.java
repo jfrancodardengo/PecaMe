@@ -1,6 +1,10 @@
 package com.example.guto.pecame.ui;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -11,8 +15,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.guto.pecame.utils.AdapterCallback;
@@ -20,11 +26,12 @@ import com.example.guto.pecame.R;
 import com.example.guto.pecame.fragmentos.BebidaFragment;
 import com.example.guto.pecame.fragmentos.HamburguerFragment;
 import com.example.guto.pecame.modelo.ProdutoModelo;
+import com.example.guto.pecame.utils.Utils;
 import com.example.guto.pecame.widget.PedidoWidgetProvider;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,10 +47,10 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
     TextView textNumeroMesa;
     @BindView(R.id.floating_button_adicionar_produto)
     FloatingActionButton buttonAdicionarProduto;
-    
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
     //TODO:lista dos mSelecionados
     private List<ProdutoModelo> mSelecionados = new ArrayList<>();
+    private static List mRecipeDrawables;
     private Intent mIntent;
     Bundle bundleInformacoes;
     String resultado="";
@@ -173,6 +180,51 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
                 resultado += "Produto: " + descricao + "\n" + "Preço: " + preco + "\n";
             }
             return resultado;
+    }
+
+
+    public static class TarefaDownload extends AsyncTask<Void,Integer,List> {
+//        private ImageView imageView;
+//
+//        public TarefaDownload(ImageView imv) {
+//            this.imageView = imv;
+//        }
+
+        @Override
+        protected List doInBackground(Void... voids) {
+//            Bitmap imagemBitmap = null;
+//            Integer idDrawable;
+//            Log.i("AsyncTask", "Baixando a imagem Thread: " + Thread.currentThread().getName());
+            mRecipeDrawables = Utils.imagesCardView;
+//            for (int i = 0; i < mRecipeDrawables.size(); i++) {
+//                idDrawable = (Integer) mRecipeDrawables.get(i);
+//                imagemBitmap = BitmapFactory.decodeResource(Resources.getSystem(),idDrawable);
+////                bitmaps.add(imagemBitmap);
+//            }
+//            return imagemBitmap;
+            return mRecipeDrawables;
+        }
+
+
+        @Override
+        protected void onPreExecute(){
+            //Codigo
+        }
+
+        @Override
+        protected void onPostExecute(List list) {
+            super.onPostExecute(list);
+        }
+    }
+
+    public List chamarAsyncTask() throws ExecutionException, InterruptedException {
+        List lista;
+        TarefaDownload download = new TarefaDownload();
+        download.execute();
+        lista = download.get();
+        Log.i("AsyncTask", "AsyncTask senado chamado Thread: " + Thread.currentThread().getName());
+
+        return lista;
     }
 
 }

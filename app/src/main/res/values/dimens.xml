@@ -7,6 +7,32 @@
     <dimen name="subheading_text_size">16sp</dimen>
     <dimen name="body_text_size">14sp</dimen>
 
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="img_height_cardview">120dp</dimen>
+    <dimen name="img_width_cardview">80dp</dimen>
+    <dimen name="padding_top_primary_title">24dp</dimen>
+    <dimen name="padding_bottom_primary_title">16dp</dimen>
+    <dimen name="padding_top_supporting_text">16dp</dimen>
+    <dimen name="padding_bottom_supporting_text">24dp</dimen>
+
+    <!--FOR LIST-->
+    <dimen name="padding_between_content_area">8dp</dimen>
+    <dimen name="padding_horizontal_tab">12dp</dimen>
+    <dimen name="padding_vertical_tab">20dp</dimen>
+
+    <!--FOR DETAIL-->
+
+    <dimen name="tab_height">48dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="title_size">24sp</dimen>
+    <dimen name="subtitle_size">16sp</dimen>
+    <dimen name="text_size">14sp</dimen>
+
+    <!-- NOVOS. -->
+    <dimen name="detail_backdrop_height">256dp</dimen>
+
     <!--
 Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout

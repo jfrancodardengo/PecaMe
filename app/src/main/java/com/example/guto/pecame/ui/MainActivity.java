@@ -7,9 +7,6 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.guto.pecame.R;
-import com.example.guto.pecame.modelo.ProdutoModelo;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
