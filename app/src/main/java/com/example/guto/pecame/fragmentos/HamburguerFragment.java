@@ -72,15 +72,7 @@ public class HamburguerFragment extends Fragment{
                     mProdutoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco"),doc.getString("observacao")));
                 }
 
-                HamburguerFragment hamburguerFragment = new HamburguerFragment();
-
-                int idFragment = getFragmentManager().beginTransaction().
-                        replace(R.id.hamburguerFragment, new HamburguerFragment(), "HAMBURGUER").
-                        commit();
-
-//                mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity,getTargetFragment());
-                mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity,idFragment);
-//                mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity);
+                mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(mProdutoAdaptador);

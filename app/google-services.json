@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "993675729428-nh4t2bqo4dbhjkfqum8sfu13esmqjpnp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.guto.pecame",
-            "certificate_hash": "66838601a2607aebed44f62ceb1241599911e321"
-          }
-        },
-        {
           "client_id": "993675729428-n2418k4e2fesdg0j8mdlpncnofe7jc4m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -31,8 +23,12 @@
           }
         },
         {
-          "client_id": "993675729428-6nhuhdv1v87pn1ko0a19cjt369uj5jk0.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "993675729428-nh4t2bqo4dbhjkfqum8sfu13esmqjpnp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guto.pecame",
+            "certificate_hash": "66838601a2607aebed44f62ceb1241599911e321"
+          }
         },
         {
           "client_id": "993675729428-6nhuhdv1v87pn1ko0a19cjt369uj5jk0.apps.googleusercontent.com",

@@ -42,7 +42,7 @@ public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.Prod
     private AdapterCallback mAdapterCallback;
     private HamburguerFragment mFragment;
 
-    public ProdutoAdaptador(List<ProdutoModelo> mProdutoModeloList, AdapterCallback adapterCallback, int fragment) {
+    public ProdutoAdaptador(List<ProdutoModelo> mProdutoModeloList, AdapterCallback adapterCallback) {
         this.mProdutoModeloList = mProdutoModeloList;
         this.mAdapterCallback = adapterCallback;
 //        this.mFragment = fragment;
@@ -52,7 +52,7 @@ public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.Prod
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item, parent, false);
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.produto_item, parent, false);
         return new ProductViewHolder(rootView);
     }
 
@@ -64,23 +64,6 @@ public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.Prod
         holder.textProduct.setText(mProdutoModelo.getmDescProduto());
         holder.textPrice.setText(mProdutoModelo.getmPreco());
         holder.editObservacao.setText(mProdutoModelo.getmObservacao());
-
-//        mFragment.getTargetFragment().equals("HamburguerFragment")
-//        mFragment.get
-
-        if(mFragment.getTag().toString().equals("HamburguerFragment")){
-//        if(){
-            try {
-                mRecipeDrawables = listaProdutoActivity.chamarAsyncTask();
-                idDrawable = (Integer) mRecipeDrawables.get(0);
-                imagemBitmap = BitmapFactory.decodeResource(Resources.getSystem(),idDrawable);
-                holder.imageCardView.setImageBitmap(imagemBitmap);
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
         holder.checkItem.setChecked(mProdutoModelo.isSelected());
         holder.checkItem.setTag(mProdutoModelo);
@@ -110,8 +93,6 @@ public class ProdutoAdaptador extends RecyclerView.Adapter<ProdutoAdaptador.Prod
         CheckBox checkItem;
         @BindView(R.id.edit_observacao)
         EditText editObservacao;
-        @BindView(R.id.img_thumbnail_cardview)
-        ImageView imageCardView;
 
         public ProductViewHolder(View itemView) {
             super(itemView);

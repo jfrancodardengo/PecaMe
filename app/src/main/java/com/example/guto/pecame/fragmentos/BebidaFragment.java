@@ -67,7 +67,7 @@ public class BebidaFragment extends Fragment{
                     mProdutoModeloList.add(new ProdutoModelo(doc.getString("descricao"),doc.getString("preco"),doc.getString("observacao")));
                 }
 
-                mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity,getTargetFragment());
+                mProdutoAdaptador = new ProdutoAdaptador(mProdutoModeloList,mActivity);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(mProdutoAdaptador);

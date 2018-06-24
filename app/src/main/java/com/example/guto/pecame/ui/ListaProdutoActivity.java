@@ -48,7 +48,6 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
     @BindView(R.id.floating_button_adicionar_produto)
     FloatingActionButton buttonAdicionarProduto;
 
-    //TODO:lista dos mSelecionados
     private List<ProdutoModelo> mSelecionados = new ArrayList<>();
     private static List mRecipeDrawables;
     private Intent mIntent;
@@ -66,7 +65,6 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
         buttonAdicionarProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO:Inserir em pedidoActivity os itens mSelecionados
                 bundleInformacoes = new Bundle();
                 //envio p/ pedido activity o array de produtos mSelecionados
                 mIntent = new Intent(getApplicationContext(),PedidoActivity.class);
@@ -126,7 +124,6 @@ public class ListaProdutoActivity extends AppCompatActivity implements AdapterCa
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        //TODO: Criado uma referencia da activity no fragment
         adapter.addFragment(new HamburguerFragment(this), "Comidas");
         adapter.addFragment(new BebidaFragment(this), "Bebidas");
         viewPager.setAdapter(adapter);
