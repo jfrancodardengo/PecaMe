@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.guto.pecame.utils.PedidoCallback;
 import com.example.guto.pecame.R;
@@ -21,9 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.ProductViewHolder> {
-    private Context mContext;
-    private List<PedidoModelo> mPedidoModeloList;
-    private PedidoCallback mListener;
+    private final List<PedidoModelo> mPedidoModeloList;
+    private final PedidoCallback mListener;
     private PedidoModelo mPedidoModelo;
     private int quantidade = 0;
 
@@ -35,7 +33,7 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
+        Context mContext = parent.getContext();
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.produto_item_pedido,parent,false);
 
         return new ProductViewHolder(rootView);
@@ -53,7 +51,8 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
         holder.buttonAumentar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                quantidade = mListener.incrementaQuantidade(mPedidoModelo.getmProduto().getmCodProduto(),Integer.parseInt(holder.textQuantity.getText().toString()));
+//                quantidade = mListener.incrementaQuantidade(mPedidoModelo.getmProduto().getmCodProduto(),Integer.parseInt(holder.textQuantity.getText().toString()));
+                quantidade = mListener.incrementaQuantidade(position,Integer.parseInt(holder.textQuantity.getText().toString()));
                 holder.displayQuantity(quantidade);
                 mListener.totalPedido(mPedidoModelo.getmProduto().getmCodProduto(),Float.parseFloat(holder.textPrice.getText().toString()),holder.buttonAumentar.getId());
             }
@@ -62,7 +61,8 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
         holder.buttonDiminuir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                quantidade = mListener.decrementaQuantidade(mPedidoModelo.getmProduto().getmCodProduto(),Integer.parseInt(holder.textQuantity.getText().toString()));
+//                quantidade = mListener.decrementaQuantidade(mPedidoModelo.getmProduto().getmCodProduto(),Integer.parseInt(holder.textQuantity.getText().toString()));
+                quantidade = mListener.decrementaQuantidade(position,Integer.parseInt(holder.textQuantity.getText().toString()));
                 holder.displayQuantity(quantidade);
                 mListener.totalPedido(mPedidoModelo.getmProduto().getmCodProduto(),Float.parseFloat(holder.textPrice.getText().toString()),holder.buttonDiminuir.getId());
             }
@@ -109,7 +109,7 @@ public class PedidoAdaptador extends RecyclerView.Adapter<PedidoAdaptador.Produc
         @BindView(R.id.button_remover)
         Button buttonRemover;
 
-        public ProductViewHolder(View itemView) {
+        ProductViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
         }

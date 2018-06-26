@@ -1,19 +1,28 @@
 package com.example.guto.pecame.utils;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import com.example.guto.pecame.R;
-
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Utils {
-    public static final List imagesCardView = new ArrayList() {{
-        add(R.drawable.hamburguer);
-        add(R.drawable.bebida);
-    }};
+    public static Object connect(String jsonURL) {
+        try {
+            URL url = new URL(jsonURL);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            //CON PROPS
+            con.setRequestMethod("GET");
+            con.setConnectTimeout(15000);
+            con.setReadTimeout(15000);
+            con.setDoInput(true);
+            return con;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return "Error " + e.getMessage();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error " + e.getMessage();
+        }
+    }
+
 }

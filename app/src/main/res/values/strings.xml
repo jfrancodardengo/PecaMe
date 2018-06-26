@@ -3,20 +3,15 @@
 
 
     <string name="imagem_de_comanda">Imagem de comanda</string>
-    <string name="imagem_de_mesa">Imagem de mesa</string>
     <string name="label_numero_mesa">Mesa:</string>
     <string name="edit_mesa">Mesa</string>
     <string name="button_abrir_mesa">Abrir mesa</string>
     <string name="label_comanda">Comanda</string>
-    <string name="label_mesa">Mesas</string>
     <string name="label_valor">Valor: R$</string>
     <string name="button_diminuir">-</string>
     <string name="text_quantidade">1</string>
     <string name="button_adicionar">+</string>
     <string name="button_remover">x</string>
-    <string name="item_selecionado">Item selecionado</string>
-    <string name="descricao_do_produto">Descrição do produto</string>
     <string name="observacao">Observação</string>
     <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
 </resources>

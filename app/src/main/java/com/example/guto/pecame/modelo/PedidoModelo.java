@@ -3,16 +3,11 @@ package com.example.guto.pecame.modelo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 public class PedidoModelo implements Parcelable{
     private int mCodPedido;
     private int mQuantidade;
     private float mValor;
     private ProdutoModelo mProduto;
-
-    public PedidoModelo() {
-    }
 
     public PedidoModelo(int mCodPedido, int mQuantidade, float mValor,ProdutoModelo produtoModelo) {
         this.mCodPedido = mCodPedido;
@@ -21,13 +16,7 @@ public class PedidoModelo implements Parcelable{
         this.mProduto = produtoModelo;
     }
 
-    public PedidoModelo(int mQuantidade, float mValor,ProdutoModelo produtoModelo) {
-        this.mQuantidade = mQuantidade;
-        this.mValor = mValor;
-        this.mProduto = produtoModelo;
-    }
-
-    protected PedidoModelo(Parcel in) {
+    private PedidoModelo(Parcel in) {
         mCodPedido = in.readInt();
         mQuantidade = in.readInt();
         mValor = in.readFloat();
@@ -57,27 +46,15 @@ public class PedidoModelo implements Parcelable{
         dest.writeFloat(mValor);
     }
 
-    public int getmCodPedido() {
-        return mCodPedido;
-    }
-
     public int getmQuantidade() {
         return mQuantidade;
-    }
-
-    public float getmValor() {
-        return mValor;
-    }
-
-    public void setmValor(float mValor) {
-        this.mValor = mValor;
     }
 
     public ProdutoModelo getmProduto() {
         return mProduto;
     }
 
-    public void setmProduto(ProdutoModelo mProduto) {
-        this.mProduto = mProduto;
+    public void setmQuantidade(int mQuantidade) {
+        this.mQuantidade = mQuantidade;
     }
 }

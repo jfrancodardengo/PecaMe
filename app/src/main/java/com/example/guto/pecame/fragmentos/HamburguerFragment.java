@@ -2,7 +2,6 @@ package com.example.guto.pecame.fragmentos;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -37,12 +36,12 @@ public class HamburguerFragment extends Fragment{
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
-    private List<ProdutoModelo> mProdutoModeloList = new ArrayList<>();
+    private final List<ProdutoModelo> mProdutoModeloList = new ArrayList<>();
     private ProdutoAdaptador mProdutoAdaptador;
     private ListaProdutoActivity mActivity;
 
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public HamburguerFragment() {
     }

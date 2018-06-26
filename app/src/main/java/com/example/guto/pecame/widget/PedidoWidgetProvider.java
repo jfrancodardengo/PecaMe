@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import com.example.guto.pecame.R;
 import com.example.guto.pecame.ui.ListaProdutoActivity;

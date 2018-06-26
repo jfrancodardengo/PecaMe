@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.guto.pecame.R;
 import com.example.guto.pecame.adaptadores.PedidoAdaptador;
@@ -30,9 +29,8 @@ public class PedidoFragment extends Fragment {
     @BindView(R.id.recyclerPedido)
     RecyclerView recyclerView;
 
-    private PedidoAdaptador mPedidoAdaptador;
-    private List<PedidoModelo> mPedidoModeloList = new ArrayList<>();
-    private PedidoActivity mPedidoActivity;
+    private final List<PedidoModelo> mPedidoModeloList = new ArrayList<>();
+    private final PedidoActivity mPedidoActivity;
 
     public PedidoFragment(PedidoActivity pedidoActivity) {
         mPedidoActivity = pedidoActivity;
@@ -52,7 +50,7 @@ public class PedidoFragment extends Fragment {
     }
 
 
-    public void receberPedidos(List<PedidoModelo> pedidos){
+    private void receberPedidos(List<PedidoModelo> pedidos){
         PedidoModelo pedido=null;
         for (int i=0;i< pedidos.size();i++) {
             pedido = pedidos.get(i);
@@ -61,7 +59,7 @@ public class PedidoFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-        mPedidoAdaptador = new PedidoAdaptador(mPedidoModeloList,mPedidoActivity);
+        PedidoAdaptador mPedidoAdaptador = new PedidoAdaptador(mPedidoModeloList, mPedidoActivity);
         recyclerView.setAdapter(mPedidoAdaptador);
     }
 

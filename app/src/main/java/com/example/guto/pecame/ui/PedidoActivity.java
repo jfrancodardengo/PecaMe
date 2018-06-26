@@ -30,10 +30,8 @@ public class PedidoActivity extends AppCompatActivity implements PedidoCallback 
     @BindView(R.id.floating_button_finalizar_pedido)
     FloatingActionButton buttonFinalizarPedido;
 
-    private List<PedidoModelo> mPedidoModeloList = new ArrayList<>();
+    private final List<PedidoModelo> mPedidoModeloList = new ArrayList<>();
     private List<ProdutoModelo> mSelecionados;
-    private PedidoFragment mPedidoFragment;
-    private ListaProdutoActivity mListaProdutoActivity;
     private float valorTotal = 0;
 
     @Override
@@ -54,7 +52,7 @@ public class PedidoActivity extends AppCompatActivity implements PedidoCallback 
 
         textNumeroMesa.setText(informacoes.getString(EscolhaMesaActivity.EDIT_MESA));
 
-        mPedidoFragment = new PedidoFragment(this);
+        PedidoFragment mPedidoFragment = new PedidoFragment(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mPedidoFragment).commit();
 
         buttonFinalizarPedido.setOnClickListener(new View.OnClickListener() {
@@ -102,14 +100,32 @@ public class PedidoActivity extends AppCompatActivity implements PedidoCallback 
 
     @Override
     public int incrementaQuantidade(int codigo,int quantidade) {
-        return quantidade += 1;
+        PedidoModelo pedido=null;
+        for (int i=0;i< mPedidoModeloList.size();i++) {
+            pedido = mPedidoModeloList.get(i);
+            if(codigo == pedido.getmProduto().getmCodProduto()){
+                quantidade += 1;
+                pedido.setmQuantidade(quantidade);
+            }
+        }
+//        ped.setmQuantidade(quantidade);
+        return quantidade;
     }
 
     @Override
     public int decrementaQuantidade(int codigo,int quantidade) {
-        if(quantidade > 0) {
-            quantidade -= 1;
+        PedidoModelo pedido=null;
+        for (int i=0;i< mPedidoModeloList.size();i++) {
+            pedido = mPedidoModeloList.get(i);
+            if(codigo == pedido.getmProduto().getmCodProduto() && quantidade > 0){
+                quantidade -= 1;
+                pedido.setmQuantidade(quantidade);
+            }
         }
+
+//        if(quantidade > 0) {
+//            quantidade -= 1;
+//        }
         return quantidade;
     }
 

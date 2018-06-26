@@ -3,8 +3,6 @@ package com.example.guto.pecame.modelo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 /**
  * Created by GUTO on 02/05/2018.
  */
@@ -16,24 +14,13 @@ public class ProdutoModelo implements Parcelable{
     private String mObservacao;
     private boolean isSelected;
 
-    public ProdutoModelo() {
-    }
-
     public ProdutoModelo(String mDescProduto, String mPreco,String mObservacao) {
         this.mDescProduto = mDescProduto;
         this.mPreco = mPreco;
         this.mObservacao = mObservacao;
     }
 
-    public ProdutoModelo(int mCodProduto, String mDescProduto, String mPreco,String mObservacao,boolean isSelected) {
-        this.mCodProduto = mCodProduto;
-        this.mDescProduto = mDescProduto;
-        this.mPreco = mPreco;
-        this.mObservacao = mObservacao;
-        this.isSelected = isSelected;
-    }
-
-    protected ProdutoModelo(Parcel in) {
+    private ProdutoModelo(Parcel in) {
         mCodProduto = in.readInt();
         mDescProduto = in.readString();
         mPreco = in.readString();
@@ -81,15 +68,15 @@ public class ProdutoModelo implements Parcelable{
         return mObservacao;
     }
 
-    public void setmCodProduto(int mCodProduto) {
-        this.mCodProduto = mCodProduto;
-    }
-
     public boolean isSelected() {
         return isSelected;
     }
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public void setmCodProduto(int mCodProduto) {
+        this.mCodProduto = mCodProduto;
     }
 }
